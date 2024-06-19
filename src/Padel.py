@@ -10,8 +10,4 @@ class Padel(Sport.Sport):
     def __str__(self):
         return "Padel:\n\t"+str(self.freq)+"\n\tRevenu:"+str(self.revenu)+"\n\tManque a gagner:"+str(self.manqueAGagner)+"\n"
         
-freq = freq.Frequentation(0.8,0.6,2)
-padel = Padel(freq)
-print(padel.getRevenu())
-print(padel.getManqueAGagner())
-print(padel)
+

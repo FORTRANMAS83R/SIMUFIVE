@@ -11,8 +11,3 @@ class Beach(Sport.Sport):
         return "Beach:\n\t"+str(self.freq)+"\n\tRevenu:"+str(self.revenu)+"\n\tManque a gagner:"+str(self.manqueAGagner)+"\n"
     
 
-freq = freq.Frequentation(0.8,0.6,2)
-beach = Beach(freq)
-print(beach.getRevenu())
-print(beach.getManqueAGagner())
-print(beach)

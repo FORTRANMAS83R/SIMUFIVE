@@ -3,7 +3,7 @@
 import Revenue as rev
 import Frequentation as freq
 import config.config as cfg
-import charges as chg
+import Charges as chg
 import Date as d
 class Semaine:
     def __init__(self,nbSub,frequentation,revenus,charges,date):
@@ -18,8 +18,10 @@ class Semaine:
         return self.charges
     def getFrequentation(self):
         return self.frequentation
+    """
     def manqueAGagner(self):
-        return(cfg.HC-self.frequentation.getHc)*
+        return(cfg.HC-self.frequentation.getHc)
+    """
     def __str__(self):
         return str(self.date)+str(self.frequentation)+"\tNombre d'abonnes:"+str(self.nbSub)+"\n"+str(self.revenus)+str(self.charges)+"\nResultat de la semaine:"+str(self.revenus.totalRevenu()-self.charges.totalCharges())
        
@@ -33,7 +35,7 @@ class Semaines:
     def __str__(self):
         c="Semaines: \n"
         for i in self.semaines:
-            c+="\t"+i.toString()+"\n"
+            c+="\t"+str(i)+"\n"
         return c
 
 """

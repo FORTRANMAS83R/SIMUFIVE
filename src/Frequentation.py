@@ -33,5 +33,3 @@ class Frequentation:
     
     
 
-freq = Frequentation(0.8,0.6,2)
-print(freq)

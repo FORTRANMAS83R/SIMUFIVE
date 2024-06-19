@@ -42,10 +42,18 @@ NB_SUBSCRIBERS=100
 #Anniv price 
 PRICE_ANNIV=200
 
-#Charges fixes 
-LOYER=1000
-SALAIRE=2000
-ELECTRICITE=500
-EAU=200
+
+
+charges = {
+    "Eau": "200000000000.0",
+    "Electricite": "100.0",
+    "Salaires": "3000.0",
+    "Assurance": "200.0",
+    "Securite": "150.0",
+    "Communication": "0.05"  
+}
+
+configExit={}
+chargesExit={}
 
 

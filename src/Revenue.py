@@ -1,7 +1,7 @@
 import Frequentation 
 import Transaction
 import config.config as cfg 
-import abonnements as ab
+import Abonnements as ab
 
 #Méthodes de calcul des revenus par activité
 def revenueFivePrivate(freq):
