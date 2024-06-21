@@ -21,6 +21,8 @@ class Frequentation:
         return self.vacantHp
     def getVacantHc(self):
         return self.vacantHc
+    def getTotal(self):
+        return self.hc+self.hp
     #useful? 
     def getNbAnniv(self):
         return self.nb_anniversaires

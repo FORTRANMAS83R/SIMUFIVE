@@ -44,16 +44,16 @@ def submit():
         if attendance == "Linéaire":
             attendance_info = f"lineaire, tauxAugmentation: { float(linear_entry.get())}"
         else:
-            attendance_info = f"creu, durée: { int(dip_duration_entry.get())}, tauxBaisse: { float(dip_rate_entry.get())}%"
+            attendance_info = f"creu, duree: { int(dip_duration_entry.get())}, tauxBaisse: { float(dip_rate_entry.get())}"
         cfg.configExit = {
             "dureeSimu": duration,
-            "freqInitFive": sports_attendance["Five"],
-            "freqInitBeach": sports_attendance["Beach"],
-            "freqInitPadel": sports_attendance["Padel"],
+            "freqInitFive": float(sports_attendance["Five"]),
+            "freqInitBeach": float(sports_attendance["Beach"]),
+            "freqInitPadel": float(sports_attendance["Padel"]),
             "evoFreq": attendance_info,
-            "freqBar":  int(attendance_entry.get()),
-            "ticketMoyenBar": ticket_entry.get(),
-            "margeBar": margin_entry.get()
+            "freqBar":  float(attendance_entry.get()),
+            "ticketMoyenBar": float(ticket_entry.get()),
+            "margeBar": float(margin_entry.get())
         }
         messagebox.showinfo("Information", "\n".join([f"{key}: {value}" for key, value in cfg.configExit.items()]))
         app.quit()

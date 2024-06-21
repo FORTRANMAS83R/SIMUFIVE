@@ -36,7 +36,7 @@ HP_PRICE_PADEL=40
 MEAN_PRICE_PADEL=(HC_PRICE_PADEL+HP_PRICE_PADEL)/(2*NB_PLAYER_PADEL)
 
 #Subscription price
-SUBSCRIPTION_PRICE=19.99/4
+SUBSCRIPTION_PRICE=19.99
 NB_SUBSCRIBERS=100
 
 #Anniv price 
@@ -56,4 +56,12 @@ charges = {
 configExit={}
 chargesExit={}
 
+
+
+#DELTA 
+deltaActive=True
+deltaCharges = 5 
+deltaFreq = 3
+deltaNbAnniv=5
+deltaSub=5
 
