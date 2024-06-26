@@ -1,5 +1,6 @@
 
 import config.config as cfg
+import pandas as pd
 
 class Abonnements:
     def __init__(self):
@@ -15,3 +16,6 @@ class Abonnements:
         return self.loss
     def getNbSubs(self):
         return self.nbSubs
+    def __str__(self):
+        return "Abonnements:\n\tNombre d'abonnés:"+str(self.nbSubs)+"\n\tRevenu mensuel:"+str(self.revenu)+"\n\tPerte annuelle:"+str(self.loss)+"\n"
+        

@@ -42,24 +42,29 @@ NB_SUBSCRIBERS=100
 #Anniv price 
 PRICE_ANNIV=200
 
+#Bar
+NB_VISITORS_BAR=300
+AUGMENTATION_EVENT_BAR=25
+TICKET_MEAN_BAR_EVENT=6
+
 
 
 charges = {
-    "Eau": "200000000000.0",
+    "Eau": "2000",
     "Electricite": "100.0",
+    "Nettoyage": "100.0",
+    "Abonnements": "1000.0",
+    "Matériels": "1000.0",
     "Salaires": "3000.0",
     "Assurance": "200.0",
-    "Securite": "150.0",
-    "Communication": "0.05"  
+    "Securite": "150.0"  
 }
-
+BUDGET_COM=0.05
 configExit={}
-chargesExit={}
+#chargesExit={}
 
-
-
-#DELTA 
-deltaActive=True
+freqPlafond=90
+deltaActive=False
 deltaCharges = 5 
 deltaFreq = 3
 deltaNbAnniv=5

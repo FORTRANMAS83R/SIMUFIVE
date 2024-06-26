@@ -4,7 +4,7 @@ import Sport
 class Five(Sport.Sport): 
     def __init__(self,frequentation):
         Sport.Sport.__init__(self,frequentation)
-        self.revenu=self.freq.getHc()*cfg.HC_PRICE_FIVE+self.freq.getHp()*cfg.HP_PRICE_FIVE
+        self.revenu=self.freq.getHc()*cfg.HC_PRICE_FIVE+self.freq.getHp()*cfg.HP_PRICE_FIVE+self.freq.getNbAnniv()*cfg.PRICE_ANNIV
         self.manqueAGagner = self.freq.getVacantHc()*cfg.HC_PRICE_FIVE+self.freq.getVacantHp()*cfg.HP_PRICE_FIVE
     
     def __str__(self):

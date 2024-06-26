@@ -5,17 +5,31 @@ import Frequentation as freq
 import config.config as cfg
 import Charges as chg
 import Date as d
+import pandas as pd
 class Semaine:
-    def __init__(self,abo,revenus,charges,date):
+    def __init__(self,frequentation,abo,revenus,charges,date):
+        self.frequentation=frequentation
         self.revenus=revenus
+        self.totalRevenus=self.revenus.getTotal()
         self.charges=charges
+        self.totalCharges=self.charges.totalCharges()
         self.abo=abo
         self.date=date
+        self.resultat=self.revenus.getTotal()-self.charges.totalCharges()
+    def getFrequentation(self):
+        return self.frequentation
     def getRevenus(self):
         return self.revenus
     def getCharges(self):
         return self.charges
-
+    def getAbo(self):
+        return self.abo
+    def getResultat(self):
+        return self.resultat
+    def getDate(self):
+        return self.date
+    def toDataFrame(self):
+        return [self.date.toDataFrame(),self.frequentation.toDataFrame(),self.revenus.toDataFrame(),self.charges.toDataFrame(),self.abo.toDataFrame()]
     """
     def manqueAGagner(self):
         return(cfg.HC-self.frequentation.getHc)
@@ -30,11 +44,62 @@ class Semaines:
         self.semaines.append(semaine)
     def getSemaines(self):
         return self.semaines
+    def toDict(self):
+        s=dict()
+        for i in range(len(self.semaines)):
+            s["Semaine"+str(i)]=self.semaines[i].toDict()
+        return s
+
     def __str__(self):
         c="Semaines: \n"
         for i in self.semaines:
             c+="\t"+str(i)+"\n"
         return c
+    def toDict(self):
+        d=dict()
+        for semaine in self.semaines:
+            d["Frequentation"]=semaine.getFrequentation().toDict(d)
+            d["Revenus"]=semaine.getRevenus().toDict(d)
+            if("Total revenus" in d):
+                d["Total revenus"][""].append(semaine.getRevenus().getTotal())
+            else:
+                d["Total revenus"]={"":[semaine.getRevenus().getTotal()]}
+
+            d["Charges"]=semaine.getCharges().toDict(d)
+            if("Total charges" in d):
+                d["Total charges"][""].append(semaine.getCharges().totalCharges())
+            else:
+                d["Total charges"]={"":[semaine.getCharges().totalCharges()]}
+            if("Resultat" in d):
+                d["Resultat"][""].append(semaine.getResultat())
+            else:
+                d["Resultat"]={"":[semaine.getResultat()]}
+            """
+            if("Abonnes" in d):
+                d["Abonnes"].append(semaine.getAbo().getNbSubs())
+            else:
+                d["Abonnes"]=[semaine.getAbo().getNbSubs()]
+                """
+        return d
+
+
+import pandas as pd
+
+# Flatten the nested dictionary and create a DataFrame 
+
+
+# Set MultiIndex 
+
+
+# Display the resulting DataFrame 
+
+
+
+        
+
+
+
+
 
 """
 #Test

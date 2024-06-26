@@ -4,7 +4,7 @@ import Sport
 class Padel(Sport.Sport):
     def __init__(self,frequentation):
         Sport.Sport.__init__(self,frequentation)
-        self.revenu=self.freq.getHc()*cfg.HC_PRICE_PADEL+self.freq.getHp()*cfg.HP_PRICE_PADEL
+        self.revenu=self.freq.getHc()*cfg.HC_PRICE_PADEL+self.freq.getHp()*cfg.HP_PRICE_PADEL+self.freq.getNbAnniv()*cfg.PRICE_ANNIV
         self.manqueAGagner = self.freq.getVacantHc()*cfg.HC_PRICE_PADEL+self.freq.getVacantHp()*cfg.HP_PRICE_PADEL
 
     def __str__(self):
