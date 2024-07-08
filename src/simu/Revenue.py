@@ -1,7 +1,7 @@
-import Frequentation 
-import Transaction
-import config.config as cfg 
-import Abonnements as ab
+import simu.Frequentation as freq
+import simu.Transaction as Transaction
+import config.cfg as cfg 
+import simu.Abonnements as ab
 import pandas as pd
 
 #Méthodes de calcul des revenus par activité

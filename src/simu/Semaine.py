@@ -1,10 +1,10 @@
 #idée ! une semaine aurait un attribut previous: permet d'avoir un comparateur avec la semaine précédente
 # Créer un comparateur avec deux semaines ou plus ? 
-import Revenue as rev
-import Frequentation as freq
-import config.config as cfg
-import Charges as chg
-import Date as d
+import simu.Revenue as rev
+import simu.Frequentation as freq
+import config.cfg as cfg
+import simu.Charges as chg
+import simu.Date as d
 import pandas as pd
 class Semaine:
     def __init__(self,frequentation,abo,revenus,charges,date):

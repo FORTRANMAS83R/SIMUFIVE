@@ -1,9 +1,9 @@
 
-import config.config as cfg 
+import config.config as param 
 def chargesBar(meanTicket,nbOfVisitors,margin):
     return (margin-1)*revenueBar(meanTicket,nbOfVisitors)
 def getNbVisit(Five,Beach,Padel,freqBar_rate):
-    return (Five.getFrequentation().getTotal()*cfg.NB_FIVE*cfg.NB_PLAYER_FIVE+Beach.getFrequentation().getTotal()*cfg.NB_BEACH*cfg.NB_PLAYER_BEACH+Padel.getFrequentation().getTotal()*cfg.NB_PADEL*cfg.NB_PLAYER_PADEL)*freqBar_rate
+    return (Five.getFrequentation().getTotal()*param.NB_FIVE*param.NB_PLAYER_FIVE+Beach.getFrequentation().getTotal()*param.NB_BEACH*param.NB_PLAYER_BEACH+Padel.getFrequentation().getTotal()*param.NB_PADEL*param.NB_PLAYER_PADEL)*freqBar_rate
 
 
 class Bar: 

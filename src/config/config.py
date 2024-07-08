@@ -49,15 +49,15 @@ TICKET_MEAN_BAR_EVENT=6
 
 
 
-charges = {
-    "Eau": "2000",
-    "Electricite": "100.0",
-    "Nettoyage": "100.0",
-    "Abonnements": "1000.0",
-    "Matériels": "1000.0",
-    "Salaires": "3000.0",
-    "Assurance": "200.0",
-    "Securite": "150.0"  
+charges_ = {
+    "Eau": 2000,
+    "Electricite": 100.0,
+    "Nettoyage": 100.0,
+    "Abonnements": 1000.0,
+    "Matériels": 1000.0,
+    "Salaires": 3000.0,
+    "Assurance": 200.0,
+    "Securite": 150.0  
 }
 BUDGET_COM=0.05
 configExit={}

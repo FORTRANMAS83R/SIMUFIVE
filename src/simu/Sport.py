@@ -1,4 +1,4 @@
-import config.config as cfg 
+import config.cfg as cfg 
 class Sport:
     """
     @property

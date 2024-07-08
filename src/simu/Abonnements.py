@@ -1,6 +1,14 @@
 
-import config.config as cfg
 import pandas as pd
+import os
+import sys
+current_dir = os.path.abspath(os.path.dirname(__file__))
+
+parent_dir = os.path.dirname(current_dir)
+
+sys.path.append(parent_dir)
+
+import config.config as cfg
 
 class Abonnements:
     def __init__(self):

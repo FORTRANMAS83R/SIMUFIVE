@@ -8,7 +8,7 @@ Charges:
     -chargesF: une liste d'objets Charge, fixe 
     -chargesV: //, variable 
 """
-import Transaction
+import simu.Transaction as Transaction
 import pandas as pd
 class Charge(Transaction.Transaction):
     def __init__(self,cle,val):
