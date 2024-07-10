@@ -18,6 +18,7 @@ import simu.Date as Date
 import simu.MiseEnForme as mf
 import random as rd 
 import simu.Abonnements as ab 
+import simu.Amortissement as am
 
 
 
@@ -64,6 +65,7 @@ def init(dic):
 
 
 def buildSimu():
+    current_amo=am.init_amortissement()
     #init(dic)
     if(cfg.config["duree_simu"]=="Semestre"):
         dureeSimu=6*4
@@ -128,17 +130,22 @@ def buildSimu():
             #Abonnements & events
             revenus.addRevenu(Revenue.Revenu("Abonnements",abo.getRevenu()))
             revenus.addRevenu(Revenue.Revenu("Evenement Club House",bar.getNbVisit()/7*param.AUGMENTATION_EVENT_BAR/100*param.TICKET_MEAN_BAR_EVENT))
+            for cle in current_amo:
+                charges.addChargeF(Charges.Charge(cle,current_amo[cle]["valeur"]/current_amo[cle]["nb_annees"]/12))
         else: 
             for c in cfg.config["charges"]:
                 charges.addChargeF(Charges.Charge(c,0))
             revenus.addRevenu(Revenue.Revenu("Abonnements",0))
             revenus.addRevenu(Revenue.Revenu("Evenement Club House",0))
+            for cle in current_amo:
+                charges.addChargeF(Charges.Charge(cle,0))
          #Les abbonnés ne payant pas leur partie 
-        revenus.addRevenu(Revenue.Revenu("Abo loss",-abo.getLoss()))
+        #revenus.addRevenu(Revenue.Revenu("Abo loss",-abo.getLoss()))
 
         charges.addChargeV(Charges.Charge("Communication",revenus.getTotal()*param.BUDGET_COM))
         semaines.addSemaine(Semaine.Semaine(meanFreq,abo,revenus,charges,Date.Date(i,int(i/12))))
         abo.varSubs(applyDelta(param.deltaSub))
+        current_amo=am.calcul_amortissement(current_amo)
     return semaines.toDict()
 
 

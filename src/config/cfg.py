@@ -47,3 +47,31 @@ config ={
         "Securite": 150.0  
     }
 }
+
+amortissement = {
+    "terrain_five": {
+        "nb_annees": 10,
+        "valeur": 35000
+    },
+    "Beach": {
+        "nb_annees": 10,
+        "valeur": 35000
+    },
+    "Padel": {
+        "nb_annees": 10,
+        "valeur": 35000
+    },
+    "batiment" : {
+        "nb_annees": 20,
+        "valeur": 2000000
+    },
+    "amenagement": {
+        "nb_annees": 10,
+        "valeur": 200000
+    },
+    "bureautique": {
+        "nb_annees": 5,
+        "valeur": 10000
+    }
+}
+
