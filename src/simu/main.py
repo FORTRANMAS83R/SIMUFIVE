@@ -108,7 +108,7 @@ def buildSimu():
         padel=Padel.Padel(freq_Padel)
 
         #Création objet Bar 
-        bar = Bar.Bar(Bar.getNbVisit(five,beach,padel,cfg.config["Bar"]["taux_freq"]/100)+param.NB_VISITORS_BAR,cfg.config["Bar"]["ticket_moyen"],cfg.config["Bar"]["marge"]/100)
+        bar = Bar.Bar(Bar.getNbVisit(five,beach,padel,cfg.config["Bar"]["taux_freq"]/100)+(cfg.config["Bar"]["freq_add"]/100),cfg.config["Bar"]["ticket_moyen"],cfg.config["Bar"]["marge"]/100)
 
 
         #Création des revennus sport
@@ -120,7 +120,7 @@ def buildSimu():
         
         #Charges hebdomadaires 
         charges.addChargeV(Charges.Charge("Conso bar",bar.getCharges()))
-        charges.addChargeV(Charges.Charge("IS",revenus.getTotal()*0.25))
+        #charges.addChargeV(Charges.Charge("IS",revenus.getTotal()*0.25))
         charges.addChargeV(Charges.Charge("TVA",revenus.getTotal()*0.2))
 
             
@@ -131,7 +131,7 @@ def buildSimu():
             revenus.addRevenu(Revenue.Revenu("Abonnements",abo.getRevenu()))
             revenus.addRevenu(Revenue.Revenu("Evenement Club House",bar.getNbVisit()/7*param.AUGMENTATION_EVENT_BAR/100*param.TICKET_MEAN_BAR_EVENT))
             for cle in current_amo:
-                charges.addChargeF(Charges.Charge(cle,current_amo[cle]["valeur"]/current_amo[cle]["nb_annees"]/12))
+                charges.addChargeF(Charges.Charge(cle,current_amo[cle]["val_amortissement"]))
         else: 
             for c in cfg.config["charges"]:
                 charges.addChargeF(Charges.Charge(c,0))

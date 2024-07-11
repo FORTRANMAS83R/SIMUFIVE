@@ -23,9 +23,9 @@ MEAN_PRICE_FIVE=(HC_PRICE_FIVE+HP_PRICE_FIVE)/(2*NB_PLAYER_FIVE)
 
 #Beach price
 NB_BEACH=1
-NB_PLAYER_BEACH=10
-HC_PRICE_BEACH=70
-HP_PRICE_BEACH=80
+NB_PLAYER_BEACH=8
+HC_PRICE_BEACH=60
+HP_PRICE_BEACH=70
 MEAN_PRICE_BEACH=(HC_PRICE_BEACH+HP_PRICE_BEACH)/(2*NB_PLAYER_BEACH)
 
 #Padel price
@@ -57,9 +57,10 @@ charges_ = {
     "Matériels": 1000.0,
     "Salaires": 3000.0,
     "Assurance": 200.0,
-    "Securite": 150.0  
+    "Securite": 150.0,  
+    "Interêts":4000 #emprunts de 2000000 à 4%
 }
-BUDGET_COM=0.05
+BUDGET_COM=0.03
 configExit={}
 #chargesExit={}
 

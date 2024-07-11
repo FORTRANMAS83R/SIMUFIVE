@@ -12,7 +12,7 @@ def init_amortissement():
 #calcul de l'amortissement mensuel linéaire
 def calcul_amortissement(amortissement):
     for key in amortissement:
-        amortissement[key]["valeur"] = amortissement[key]["valeur"] - amortissement[key]["valeur"]/(amortissement[key]["nb_annees"]*12)
+        amortissement[key]["valeur"] = amortissement[key]["valeur"] - amortissement[key]["val_amortissement"]
     return amortissement
 
 def total_amortissement(amortissement):
@@ -20,22 +20,3 @@ def total_amortissement(amortissement):
     for key in amortissement:
         total = total + amortissement[key]["valeur"]
     return total
-"""
-class Amortissement:
-    def __init__(self,cle,val):
-        self.nb_annees = cle
-        self.valeur = val
-    def get_nb_annees(self):
-        return self.nb_annees
-    def get_valeur(self):
-        return self.valeur
-
-class Amortissements:
-    def __init__(self):
-        self.amortissments=[]
-    def get_amortissements(self):
-        return self.amortissments
-    def add_amortissement(self,amortissement):
-        self.amortissments.append(amortissement)
-    def to_
-"""

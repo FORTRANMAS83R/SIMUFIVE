@@ -57,6 +57,8 @@ class Semaines:
         return c
     def toDict(self):
         d=dict()
+        calc_is=0
+        cpt=1
         for semaine in self.semaines:
             d["Frequentation"]=semaine.getFrequentation().toDict(d)
             d["Revenus"]=semaine.getRevenus().toDict(d)
@@ -70,10 +72,38 @@ class Semaines:
                 d["Total charges"][""].append(semaine.getCharges().totalCharges())
             else:
                 d["Total charges"]={"":[semaine.getCharges().totalCharges()]}
-            if("Resultat" in d):
-                d["Resultat"][""].append(semaine.getResultat())
+            if("Total avant IS" in d):
+                calc_is+=semaine.getResultat()
+                d["Total avant IS"][""].append(semaine.getResultat())
             else:
-                d["Resultat"]={"":[semaine.getResultat()]}
+                calc_is+=semaine.getResultat()
+                d["Total avant IS"]={"":[semaine.getResultat()]}
+            if(cpt%4==0):
+                if("Total apres IS" in d):
+                    if(calc_is<0):
+                        d["Total apres IS"][""].append(calc_is)
+                    else:
+                        d["Total apres IS"][""].append(calc_is*0.75)
+                else:
+                    if(calc_is<0):
+                        d["Total apres IS"]={"":[calc_is]}
+                    else:
+                        d["Total apres IS"]={"":[calc_is*0.75]}
+                calc_is=0
+            else:
+                if("Total apres IS" in d):
+                    if(calc_is<0):
+                        d["Total apres IS"][""].append(0)
+                    else:
+                        d["Total apres IS"][""].append(0*0.75)
+                else:
+                    if(calc_is<0):
+                        d["Total apres IS"]={"":[0]}
+                    else:
+                        d["Total apres IS"]={"":[0*0.75]}
+            cpt+=1
+
+            
             """
             if("Abonnes" in d):
                 d["Abonnes"].append(semaine.getAbo().getNbSubs())
