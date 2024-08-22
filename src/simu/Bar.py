@@ -19,7 +19,6 @@ class Bar:
         return self.nbVisit
 
 
-b=Bar(8,8,0.7)
-print(type(b.getCharges()))
+
     
 
