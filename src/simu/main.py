@@ -86,15 +86,7 @@ def buildSimu():
             freqPadel=(cfg.config["Padel"]["freq_init"]-rd.randrange(-10,20),cfg.config["Padel"]["freq_init"])
         else:
                 freqFive,freqBeach,freqPadel=calculFreqLineaire(freqFive,cfg.config["Five"]["evolution"]["taux_evolution"]),calculFreqLineaire(freqBeach,cfg.config["Beach"]["evolution"]["taux_evolution"]),calculFreqLineaire(freqPadel,cfg.config["Padel"]["evolution"]["taux_evolution"])
-        #else:
-        #    #Pas stable for now 
-        #    if(i==1):
-        #        freqFive=(cfg.config["freqInitFive"]-rd.randrange(-10,20),cfg.config["freqInitFive"])
-        #        freqBeach=(cfg.config["freqInitBeach"]-rd.randrange(-10,20),cfg.config["freqInitBeach"])
-        #        freqPadel=(cfg.config["freqInitPadel"]-rd.randrange(-10,20),cfg.config["freqInitPadel"])
-        #    else:
-        #        freqFive,freqBeach,freqPadel=calculFreqAvecCreux(freqFive,cfg.config["tauxBaisse"],cfg.config["duree"]+1-i),calculFreqAvecCreux(freqBeach,cfg.config["tauxBaisse"],cfg.config["duree"]+1-i),calculFreqAvecCreux(freqPadel,cfg.config["tauxBaisse"],cfg.config["duree"]+1-i)
-        #Création des frequentations des sports 
+      
         freq_Five = Frequentation.Frequentation(freqFive[1]/100,freqFive[0]/100,applyAnniv("Five"))
         freq_Beach=Frequentation.Frequentation(freqBeach[1]/100,freqBeach[0]/100,applyAnniv("Beach"))
         freq_Padel=Frequentation.Frequentation(freqPadel[1]/100,freqPadel[0]/100,applyAnniv("Padel"))
