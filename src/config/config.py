@@ -1,72 +1,91 @@
-"""
-Les horaires d'ouverture: 
-    -Lundi/vendredi: 11h/00h 
-    -Samedi & Dimanche: 10h/23h
-    => ouvert 91h/semaine 
-Les heures creuses:
-    -En semaine: 11h/17h
-    => heures creuses = 30h 
-    => heures pleines = 61h 
-"""
-#config
-HOURS=91
-HC=30
-HP=60
 
-#Five 
-NB_FIVE=2 
-NB_PLAYER_FIVE=10
-HC_PRICE_FIVE=80
-HP_PRICE_FIVE=90
+import json
+class SportConfig:
+    def __init__(self): 
+        self.freq = FrequentationConfig()
+        self.nb_terrains = None
+    def set_sport(self, freq, prix_hc, prix_hp, nb): 
+        if isinstance(nb, int) == False: 
+            raise ValueError("Le nombre de terrains doit être un entier")
+        if nb < 1: 
+            raise ValueError("Le nombre de terrains doit être supérieur ou égal à 1")
+        self.freq.set_freq(freq)
+        self.nb_terrains = nb
+        self.prix_hc = prix_hc
+        self.prix_hp = prix_hp
+    def __str__(self):
+        return "Fréquentation: " + str(self.freq) + "Nombre de terrains: " + str(self.nb_terrains) + "\n"
 
-MEAN_PRICE_FIVE=(HC_PRICE_FIVE+HP_PRICE_FIVE)/(2*NB_PLAYER_FIVE)
+class FrequentationConfig: 
+    def __init__(self): 
+        self.freq_init_hc = None
+        self.freq_max_hc = None
+        self.var_hc = None
+        self.type_evo_hc = None
+        self.taux_evo_hc = None
 
-#Beach price
-NB_BEACH=1
-NB_PLAYER_BEACH=10
-HC_PRICE_BEACH=70
-HP_PRICE_BEACH=80
-MEAN_PRICE_BEACH=(HC_PRICE_BEACH+HP_PRICE_BEACH)/(2*NB_PLAYER_BEACH)
+        self.freq_init_hp = None
+        self.freq_max_hp = None
+        self.var_hp = None
+        self.type_evo_hp = None
+        self.taux_evo_hp = None
 
-#Padel price
-NB_PADEL=2
-NB_PLAYER_PADEL=4
-HC_PRICE_PADEL=32
-HP_PRICE_PADEL=40
-MEAN_PRICE_PADEL=(HC_PRICE_PADEL+HP_PRICE_PADEL)/(2*NB_PLAYER_PADEL)
+    def set_freq(self,config): 
+        if not isinstance(config, dict): 
+            raise ValueError("La configuration doit être un dictionnaire")
+        self.freq_init_hc = config['freq_init_hc']
+        self.freq_max_hc = config['freq_max_hc']
+        self.var_hc = config['var_hc']
+        self.type_evo_hc = config['type_evo_hc']
+        self.taux_evo_hc = config['taux_evo_hc']
 
-#Subscription price
-SUBSCRIPTION_PRICE=19.99
-NB_SUBSCRIBERS=100
+        self.freq_init_hp = config['freq_init_hp']
+        self.freq_max_hp = config['freq_max_hp']
+        self.var_hp = config['var_hp']
+        self.type_evo_hp = config['type_evo_hp']
+        self.taux_evo_hp = config['taux_evo_hp']
+    def __str__(self):
+        return "Fréquentation en heure creuse: \n" + "Fréquence initiale: " + str(self.freq_init_hc) + "\nFréquence maximale: " + str(self.freq_max_hc) + "\nVariance: " + str(self.var_hc) + "\nType d'évolution: " + str(self.type_evo_hc) + "\nTaux d'évolution: " + str(self.taux_evo_hc) + "\n" + "Fréquentation en heure pleine: \n" + "Fréquence initiale: " + str(self.freq_init_hp) + "\nFréquence maximale: " + str(self.freq_max_hp) + "\nVariance: " + str(self.var_hp) + "\nType d'évolution: " + str(self.type_evo_hp) + "\nTaux d'évolution: " + str(self.taux_evo_hp) + "\n"
+    
 
-#Anniv price 
-PRICE_ANNIV=200
+        
+class Config: 
+    def __init__(self):
+        self.duree_simu = None 
+        self.Five = SportConfig()
+        self.Beach = SportConfig()
+        self.Padel = SportConfig()
+        #self.Bar = BarConfig()
+    def set_five(self, freq, prix_hc, prix_hp, nb): 
+        self.Five.set_sport(freq, prix_hc, prix_hp, nb)
+    def set_beach(self, freq, prix_hc, prix_hp, nb):
+        self.Beach.set_sport(freq, prix_hc, prix_hp, nb)
+    def set_padel(self, freq, prix_hc, prix_hp, nb):
+        self.Padel.set_sport(freq, prix_hc, prix_hp, nb)
+    def set_duree_simu(self, duree): 
+        if not isinstance(duree, int): 
+            raise ValueError("La durée de la simulation doit être un entier")
+        self.duree_simu = duree
+    def __str__(self): 
+        return "Durée de la simulation: " + str(self.duree_simu) + "\n" + str(self.Five) + "\n" + str(self.Beach) + "\n" + str(self.Padel) + "\n"
+    
 
-#Bar
-NB_VISITORS_BAR=300
-AUGMENTATION_EVENT_BAR=25
-TICKET_MEAN_BAR_EVENT=6
+def init(path): 
+    config = Config()
+
+    # Read the JSON file
+    with open(path, 'r') as file:
+        data = json.load(file)
+
+    # Set the configuration values
+    config.set_duree_simu(data['duree_simu'])
+
+    # Set values for each sport
+    config.set_five(data['Five']['freq'], data['Five']['prix_hc'], data['Five']['prix_hp'], data['Five']['nb_terrains'])
+    config.set_beach(data['Beach']['freq'], data['Beach']['prix_hc'], data['Beach']['prix_hp'], data['Beach']['nb_terrains'])
+    config.set_padel(data['Padel']['freq'], data['Padel']['prix_hc'], data['Padel']['prix_hp'], data['Padel']['nb_terrains'])
 
 
+    return config
 
-charges_ = {
-    "Eau": 2000,
-    "Electricite": 100.0,
-    "Nettoyage": 100.0,
-    "Abonnements": 1000.0,
-    "Matériels": 1000.0,
-    "Salaires": 3000.0,
-    "Assurance": 200.0,
-    "Securite": 150.0  
-}
-BUDGET_COM=0.05
-configExit={}
-#chargesExit={}
-
-freqPlafond=90
-deltaActive=False
-deltaCharges = 5 
-deltaFreq = 3
-deltaNbAnniv=5
-deltaSub=5
 
