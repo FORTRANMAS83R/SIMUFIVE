@@ -16,20 +16,20 @@ class Simulateur:
         self.Beach = Sport(config.Beach)
         self.Padel = Sport(config.Padel)
      #   self.Bar = Bar(config.Bar) PAS ENCORE IMPLEMENTE
-        self.Semaines = Semaines()
+        self.semaines = Semaines()
 
     def evolve(self, i): 
         self.Five.evolve(i)
         self.Beach.evolve(i)
         self.Padel.evolve(i)
-        self.Bar.evolve(i)
+       # self.Bar.evolve(i)
 
     def run(self): 
         for i in range(self.duree): 
             curr_semaine = Semaine()  
             self.evolve(i)  
-            curr_semaine.add(Five, Beach, Padel)
-            Semaines.add(curr_semaine)
+            curr_semaine.add(self.Five, self.Beach, self.Padel)
+            self.semaines.add(curr_semaine)
 
 
 def start(config_path):

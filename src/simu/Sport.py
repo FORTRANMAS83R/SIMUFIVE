@@ -18,7 +18,7 @@ class Sport:
     
     def evolve(self, i): 
         self.freq.evolve(i)
-        self.revenu = self.freq.get_hc * self.nb_terrains * self.prix_hc + self.freq.get_hp * self.nb_terrains * self.prix_hp
+        self.revenu = self.freq.get_hc() * self.nb_terrains * self.prix_hc + self.freq.get_hp() * self.nb_terrains * self.prix_hp
     
     def get_revenu(self):
         return self.revenu

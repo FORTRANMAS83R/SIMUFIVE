@@ -57,7 +57,6 @@ class Frequentation:
         Getters
     """
     def get_hc(self):
-        print("miaow")
         return self.freq_hc
     def get_hp(self):
         return self.freq_hp
