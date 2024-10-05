@@ -1,0 +1,66 @@
+{
+    "duree_simu": 100,
+    "Five": {
+      "freq": {
+        "freq_init_hc": 10.0,
+        "freq_max_hc": 20.0, 
+        "var_hc": 0.5,
+        "type_evo_hc": "lineaire",
+        "taux_evo_hc": 1.0,
+
+        "freq_init_hp": 10.0,
+        "freq_max_hp": 20.0, 
+        "var_hp": 0.5,
+        "type_evo_hp": "lineaire",
+        "taux_evo_hp": 1.0
+      },
+      "nb_terrains": 3, 
+      "prix_hc": 10.0,
+      "prix_hp": 20.0
+    },
+    "Beach": {
+      "freq": {
+        "freq_init_hc": 10.0,
+        "freq_max_hc": 20.0, 
+        "var_hc": 0.5,
+        "type_evo_hc": "lineaire",
+        "taux_evo_hc": 1.0,
+
+        "freq_init_hp": 10.0,
+        "freq_max_hp": 20.0, 
+        "var_hp": 0.5,
+        "type_evo_hp": "lineaire",
+        "taux_evo_hp": 1.0
+      },
+      "nb_terrains": 2, 
+      "prix_hc": 10.0,
+      "prix_hp": 20.0
+    },
+    "Padel": {
+        "freq": {
+            "freq_init_hc": 10.0,
+            "freq_max_hc": 20.0, 
+            "var_hc": 0.5,
+            "type_evo_hc": "lineaire",
+            "taux_evo_hc": 1.0,
+    
+            "freq_init_hp": 10.0,
+            "freq_max_hp": 20.0, 
+            "var_hp": 0.5,
+            "type_evo_hp": "lineaire",
+            "taux_evo_hp": 1.0
+        },
+      "nb_terrains": 4, 
+        "prix_hc": 10.0,
+        "prix_hp": 20.0
+    },
+    "Bar": {
+      "freq_init": 10.0,
+      "evolution": {
+        "type": "logarithmique",
+        "taux_evolution": 1.0
+      },
+      "nb_terrains": 1
+    }
+  }
+  
