@@ -1,5 +1,6 @@
 import sys
 import os
+import argparse
 
 # Ajouter le répertoire parent à sys.path
 parent_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..','..'))
@@ -30,6 +31,9 @@ class Simulateur:
             self.evolve(i)  
             curr_semaine.add(self.Five, self.Beach, self.Padel)
             self.semaines.add(curr_semaine)
+    def plot(self): 
+        self.semaines.plot()
+
 
 
 def start(config_path):
@@ -38,4 +42,13 @@ def start(config_path):
     simu.run()
     return simu
 
-start('../config/config.json')
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Script pour traiter un fichier.')
+    parser.add_argument('file_name', type=str, help='Le nom du fichier à traiter')
+    args = parser.parse_args()
+    
+    simu = start(args.file_name)
+    simu.plot()
+    print("Simulation done !")

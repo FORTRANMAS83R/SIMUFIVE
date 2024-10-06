@@ -22,9 +22,9 @@ class Frequentation:
         #Evolution de la fréquentation en heure creuse
         if self.type_evo_hc == "lineaire": 
             moy_freq_hc = self.freq_init_hc + i * self.taux_evo_hc
-        elif self.type_evo == "exponentielle": 
+        elif self.type_evo_hc == "exponentielle": 
             moy_freq_hc = math.exp(self.taux_evo_hc * i) + (self.freq_init_hc -1 )
-        elif self.type_evo == "logarithmique": 
+        elif self.type_evo_hc == "logarithmique": 
             moy_freq_hc = self.freq_init_hc + self.taux_evo_hc * math.log(i + 1)
         elif self.type_evo == "quadratique":
             moy_freq_hc = self.freq_init_hc + self.taux_evo_hc * i**2
