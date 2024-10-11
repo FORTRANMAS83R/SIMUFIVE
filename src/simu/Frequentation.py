@@ -1,7 +1,22 @@
 import numpy as np
 import math
 class Frequentation: 
-    def __init__(self, config): 
+    def __init__(self):
+        self.freq_init_hc = None
+        self.freq_max_hc = None
+        self.var_hc = None
+        self.type_evo_hc = None
+        self.taux_evo_hc = None
+
+        self.freq_init_hp = None
+        self.freq_max_hp = None
+        self.var_hp = None
+        self.type_evo_hp = None
+        self.taux_evo_hp = None
+
+        self.freq_hc = None
+        self.freq_hp = None
+    def set_config(self, config): 
         self.freq_init_hc = config.freq_init_hc
         self.freq_max_hc = config.freq_max_hc
         self.var_hc = config.var_hc
@@ -16,6 +31,10 @@ class Frequentation:
 
         self.freq_hc = None
         self.freq_hp = None
+        
+    def set_freq(self, freq_hc, freq_hp): 
+        self.freq_hc = freq_hc
+        self.freq_hp = freq_hp
 
     
     def evolve(self, i): 

@@ -13,9 +13,12 @@ from src.simu.Semaine import Semaines
 class Simulateur: 
     def __init__(self, config): 
         self.duree = config.duree_simu
-        self.Five = Sport(config.Five)
-        self.Beach = Sport(config.Beach)
-        self.Padel = Sport(config.Padel)
+        self.Five = Sport()
+        self.Five.set_config(config.Five)
+        self.Beach = Sport()
+        self.Beach.set_config(config.Beach)
+        self.Padel = Sport()
+        self.Padel.set_config(config.Padel)
      #   self.Bar = Bar(config.Bar) PAS ENCORE IMPLEMENTE
         self.semaines = Semaines()
 
@@ -29,7 +32,7 @@ class Simulateur:
         for i in range(self.duree): 
             curr_semaine = Semaine()  
             self.evolve(i)  
-            curr_semaine.add(self.Five, self.Beach, self.Padel)
+            curr_semaine.add(self.Five.clone(), self.Beach.clone(), self.Padel.clone())
             self.semaines.add(curr_semaine)
     def plot(self): 
         self.semaines.plot()
