@@ -8,8 +8,7 @@ class Semaine:
         self.five=five
         self.beach=beach
         self.padel=padel
-    
-       
+
 class Semaines:
     def __init__(self):
         self.semaines=[]
@@ -34,9 +33,13 @@ class Semaines:
             res_padel.append(semaine.padel.revenu)
             
             i+=1
+
         plt.plot(n_semaine,res_five,label="Five")
         plt.plot(n_semaine,res_beach,label="Beach")
         plt.plot(n_semaine,res_padel,label="Padel")
+        plt.xlabel("Semaine")
+        plt.ylabel("Revenu [€]")
+        plt.legend()
         plt.show()
             
 

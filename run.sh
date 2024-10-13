@@ -1,0 +1,1 @@
+python src/simu/Simulateur.py $1
