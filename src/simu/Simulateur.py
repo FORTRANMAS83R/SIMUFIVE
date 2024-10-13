@@ -10,6 +10,8 @@ import src.config.config as config
 from src.simu.Sport import Sport
 from src.simu.Semaine import Semaine
 from src.simu.Semaine import Semaines
+from openpyxl import Workbook
+
 class Simulateur: 
     def __init__(self, config): 
         self.duree = config.duree_simu
@@ -37,6 +39,23 @@ class Simulateur:
     def plot(self): 
         self.semaines.plot()
 
+    def toXlsx(self, fileName): 
+        # Put simulation into an excel file
+        # First sheet is for the global simulation (raw data)
+        # Second sheet is for the mean CA per week, month, year
+        wb = Workbook()
+
+        # First sheet
+        ws = wb.active
+        ws.title = "Simulation"
+        ws.append(["Semaine", "Five", "Beach", "Padel"])
+        for i in range(len(self.semaines.semaines)):
+            semaine = self.semaines.semaines[i]
+            ws.append([i, semaine.five.revenu, semaine.beach.revenu, semaine.padel.revenu])
+        
+        # Write file
+        wb.save(fileName + ".xlsx")
+
 
 
 def start(config_path):
@@ -50,8 +69,12 @@ def start(config_path):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Script pour traiter un fichier.')
     parser.add_argument('file_name', type=str, help='Le nom du fichier à traiter')
+    parser.add_argument('--xlsx', type=str, help='Le nom du fichier excel de sortie (sans extension)')
     args = parser.parse_args()
     
     simu = start(args.file_name)
     simu.plot()
+
+    if(args.xlsx):
+        simu.toXlsx(args.xlsx)
     print("Simulation done !")
