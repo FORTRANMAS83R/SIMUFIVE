@@ -1,6 +1,7 @@
 import sys
 import os
 import argparse
+import matplotlib.pyplot as plt
 
 # Ajouter le répertoire parent à sys.path
 parent_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..','..'))
@@ -12,6 +13,11 @@ from src.simu.Semaine import Semaine
 from src.simu.Semaine import Semaines
 from openpyxl import Workbook
 
+
+"""
+Classe Simulateur, stocke des objets sports et leurs difffférentes copies au cours des semaines. 
+Permetant ainsi de simuler l'évolution des sports au cours du temps.
+"""
 class Simulateur: 
     def __init__(self, config): 
         self.duree = config.duree_simu
@@ -22,22 +28,54 @@ class Simulateur:
         self.Padel = Sport()
         self.Padel.set_config(config.Padel)
      #   self.Bar = Bar(config.Bar) PAS ENCORE IMPLEMENTE
-        self.semaines = Semaines()
+        self.semaines = []
+        self.revenus = 0
+    
 
+    #Ajoute une semaine à la simulation
+
+    def add(self, semaine):
+        self.semaines.append(semaine)
+        self.revenus += semaine.five.revenu + semaine.beach.revenu + semaine.padel.revenu
+    
+    #Fait évoluer les sports de la simulation
+    
     def evolve(self, i): 
         self.Five.evolve(i)
         self.Beach.evolve(i)
         self.Padel.evolve(i)
        # self.Bar.evolve(i)
+    
+    def plot(self):
+        n_semaine=[]
+        res_five=[]
+        res_beach=[]
+        res_padel=[]
+        CA=[]
+        i=0
+        for semaine in self.semaines:
+            n_semaine.append(i)
+            res_five.append(semaine.five.revenu)
+            res_beach.append(semaine.beach.revenu)
+            res_padel.append(semaine.padel.revenu)
+            
+            i+=1
 
+        plt.plot(n_semaine,res_five,label="Five")
+        plt.plot(n_semaine,res_beach,label="Beach")
+        plt.plot(n_semaine,res_padel,label="Padel")
+        plt.xlabel("Semaine")
+        plt.ylabel("Revenu [€]")
+        plt.legend()
+        plt.show()
+
+    #Lance la simulation
     def run(self): 
         for i in range(self.duree): 
             curr_semaine = Semaine()  
             self.evolve(i)  
             curr_semaine.add(self.Five.clone(), self.Beach.clone(), self.Padel.clone())
-            self.semaines.add(curr_semaine)
-    def plot(self): 
-        self.semaines.plot()
+            self.add(curr_semaine)
 
     def toXlsx(self, fileName): 
         # Put simulation into an excel file
@@ -49,8 +87,8 @@ class Simulateur:
         ws = wb.active
         ws.title = "Simulation"
         ws.append(["Semaine", "Five", "Beach", "Padel"])
-        for i in range(len(self.semaines.semaines)):
-            semaine = self.semaines.semaines[i]
+        for i in range(len(self.semaines)):
+            semaine = self.semaines[i]
             ws.append([i, semaine.five.revenu, semaine.beach.revenu, semaine.padel.revenu])
         
         # Write file

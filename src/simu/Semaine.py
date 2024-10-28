@@ -4,6 +4,8 @@ class Semaine:
         self.five=None
         self.beach=None
         self.padel=None
+        self.revenus = 0
+
     def add(self,five,beach,padel):
         self.five=five
         self.beach=beach
