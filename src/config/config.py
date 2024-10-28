@@ -1,5 +1,15 @@
 
 import json
+class BarConfig:
+    def __init__(self):
+        self.semaine = None
+        self.weekend = None
+        self.eveneement = None
+    def set_config(self, config):
+        self.semaine = config['semaine']
+        self.weekend = config['weekend']
+        self.evenement = config['evenement']
+
 class SportConfig:
     def __init__(self): 
         self.freq = FrequentationConfig()

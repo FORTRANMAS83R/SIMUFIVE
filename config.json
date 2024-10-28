@@ -55,12 +55,34 @@
         "prix_hp": 20.0
     },
     "Bar": {
-      "freq_init": 10.0,
-      "evolution": {
-        "type": "logarithmique",
-        "taux_evolution": 1.0
-      },
-      "nb_terrains": 1
+      "freq":{
+        "semaine":{
+          "lambda_h_c":7, 
+          "lambda_h_p":14,
+          "mu_h_c":2,
+          "mu_h_p":7, 
+          "sigma_h_c":1,
+          "sigma_h_p":2
+        }, 
+        "weekend":{
+          "lambda_h_c":10, 
+          "lambda_h_p":20,
+          "mu_h_c":2,
+          "mu_h_p":7, 
+          "sigma_h_c":1,
+          "sigma_h_p":2
+        }, 
+        "evenements":{
+          "frequence_occurence": 10,
+          "periode":"semaine",
+          "lambda_h_c":10, 
+          "lambda_h_p":20,
+          "mu_h_c":2,
+          "mu_h_p":7, 
+          "sigma_h_c":1,
+          "sigma_h_p":2
+        }
+      }
     }
   }
   
