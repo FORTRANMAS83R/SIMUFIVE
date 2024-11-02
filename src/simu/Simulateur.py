@@ -9,6 +9,7 @@ if parent_directory not in sys.path:
     sys.path.append(parent_directory)
 import src.config.config as config
 from src.simu.Sport import Sport
+from src.simu.Bar import Bar
 from src.simu.Semaine import Semaine
 from src.simu.Semaine import Semaines
 from openpyxl import Workbook
@@ -27,7 +28,8 @@ class Simulateur:
         self.Beach.set_config(config.Beach)
         self.Padel = Sport()
         self.Padel.set_config(config.Padel)
-     #   self.Bar = Bar(config.Bar) PAS ENCORE IMPLEMENTE
+        self.Bar = Bar()
+        self.Bar.set_config(config.Bar)
         self.semaines = []
         self.revenus = 0
     
@@ -44,7 +46,7 @@ class Simulateur:
         self.Five.evolve(i)
         self.Beach.evolve(i)
         self.Padel.evolve(i)
-       # self.Bar.evolve(i)
+        self.Bar.evolve(i)
     
     def plot(self):
         n_semaine=[]

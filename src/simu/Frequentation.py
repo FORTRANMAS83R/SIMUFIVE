@@ -1,5 +1,6 @@
 import numpy as np
 import math
+import src.config.param as param
 class Frequentation: 
     def __init__(self):
         self.freq_init_hc = None
@@ -16,6 +17,9 @@ class Frequentation:
 
         self.freq_hc = None
         self.freq_hp = None
+
+        self.res_hc = None
+        self.res_hp = None
     def set_config(self, config): 
         self.freq_init_hc = config.freq_init_hc
         self.freq_max_hc = config.freq_max_hc
@@ -36,6 +40,9 @@ class Frequentation:
         self.freq_hc = freq_hc
         self.freq_hp = freq_hp
 
+        self.res_hc = freq_hc * param.NB_HEURES_HC
+        self.res_hp = freq_hp * param.NB_HEURES_HP
+
     
     def evolve(self, i): 
         #Evolution de la fréquentation en heure creuse
@@ -54,6 +61,7 @@ class Frequentation:
             self.freq_hc = 0
         if self.freq_hc > self.freq_max_hc: 
             self.freq_hc = self.freq_max_hc
+        self.res_hc = self.freq_hc * param.NB_HEURES_HC
         
         #Evolution de la fréquentation en heure pleine
         if self.type_evo_hp == "lineaire": 
@@ -71,6 +79,7 @@ class Frequentation:
             self.freq_hp = 0
         if self.freq_hp > self.freq_max_hp:
             self.freq_hp = self.freq_max_hp
+        self.res_hp = self.freq_hp * param.NB_HEURES_HP
     
     """
         Getters
@@ -79,3 +88,8 @@ class Frequentation:
         return self.freq_hc
     def get_hp(self):
         return self.freq_hp
+    
+    def get_res_hc(self):
+        return self.res_hc
+    def get_res_hp(self):
+        return self.res_hp

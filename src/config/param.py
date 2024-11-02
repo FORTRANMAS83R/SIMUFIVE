@@ -1,0 +1,5 @@
+global NB_HEURES_HC
+global NB_HEURES_HP
+
+NB_HEURES_HC = 31
+NB_HEURES_HP = 61 

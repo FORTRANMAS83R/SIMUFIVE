@@ -1,14 +1,45 @@
 
 import json
+class BarSpeConfig: 
+    def __init__(self): 
+        self.lambda_h_c = None
+        self.lambda_h_p = None
+        self.mu_h_c = None
+        self.mu_h_p = None
+        self.sigma_h_c = None
+        self.sigma_h_p = None
+
+    def set_Bar(self, config: dict):
+        self.lambda_h_c = config["lambda_h_c"]
+        self.lambda_h_p = config["lambda_h_p"]
+        self.mu_h_c = config["mu_h_c"]
+        self.mu_h_p = config["mu_h_p"]
+        self.sigma_h_c = config["sigma_h_c"]
+        self.sigma_h_p = config["sigma_h_p"]
+
+
+class BarEvenementConfig(BarSpeConfig): 
+    def __init__(self):
+        super()
+        self.frequence_occurence = None
+        self.occurence_inter_semaine = None
+        self.periode = None
+    
+    def set_Bar_evenement(self, config: dict): 
+        super().set_Bar(config)
+        self.frequence_occurence = config["frequence_occurence"]
+        self.occurence_inter_semaine = config["occurence_inter_semaine"]
+        self.periode = config["periode"]
 class BarConfig:
     def __init__(self):
-        self.semaine = None
-        self.weekend = None
-        self.eveneement = None
+        self.semaine = BarSpeConfig()
+        self.weekend = BarSpeConfig()
+        self.evenements = BarEvenementConfig()
     def set_config(self, config):
-        self.semaine = config['semaine']
-        self.weekend = config['weekend']
-        self.evenement = config['evenement']
+        self.semaine.set_Bar(config['freq']['semaine'])
+        self.weekend.set_Bar(config['freq']['week-end'])
+        self.evenements.set_Bar_evenement(config['freq']['evenements'])
+
 
 class SportConfig:
     def __init__(self): 
@@ -65,13 +96,15 @@ class Config:
         self.Five = SportConfig()
         self.Beach = SportConfig()
         self.Padel = SportConfig()
-        #self.Bar = BarConfig()
+        self.Bar = BarConfig()
     def set_five(self, freq, prix_hc, prix_hp, nb): 
         self.Five.set_sport(freq, prix_hc, prix_hp, nb)
     def set_beach(self, freq, prix_hc, prix_hp, nb):
         self.Beach.set_sport(freq, prix_hc, prix_hp, nb)
     def set_padel(self, freq, prix_hc, prix_hp, nb):
         self.Padel.set_sport(freq, prix_hc, prix_hp, nb)
+    def set_Bar(self, config):
+        self.Bar.set_config(config)
     def set_duree_simu(self, duree): 
         if not isinstance(duree, int): 
             raise ValueError("La durée de la simulation doit être un entier")
@@ -94,6 +127,7 @@ def init(path):
     config.set_five(data['Five']['freq'], data['Five']['prix_hc'], data['Five']['prix_hp'], data['Five']['nb_terrains'])
     config.set_beach(data['Beach']['freq'], data['Beach']['prix_hc'], data['Beach']['prix_hp'], data['Beach']['nb_terrains'])
     config.set_padel(data['Padel']['freq'], data['Padel']['prix_hc'], data['Padel']['prix_hp'], data['Padel']['nb_terrains'])
+    config.set_Bar(data['Bar'])
 
 
     return config

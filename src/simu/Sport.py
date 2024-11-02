@@ -1,11 +1,13 @@
 import sys
 import os
 
+
 # Ajouter le répertoire parent à sys.path
 parent_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..','..'))
 if parent_directory not in sys.path:
     sys.path.append(parent_directory)
 import src.config.config as config
+import src.config.param as param
 from src.simu.Frequentation import Frequentation
 class Sport:
     def __init__(self): 
@@ -26,7 +28,7 @@ class Sport:
     
     def evolve(self, i): 
         self.freq.evolve(i)
-        self.revenu = self.freq.get_hc() * self.nb_terrains * self.prix_hc + self.freq.get_hp() * self.nb_terrains * self.prix_hp
+        self.revenu = self.freq.get_res_hc() * self.nb_terrains * self.prix_hc + self.freq.get_res_hp() * self.nb_terrains * self.prix_hp
     
     def clone(self):
         c = Sport()

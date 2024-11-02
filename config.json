@@ -64,7 +64,7 @@
           "sigma_h_c":1,
           "sigma_h_p":2
         }, 
-        "weekend":{
+        "week-end":{
           "lambda_h_c":10, 
           "lambda_h_p":20,
           "mu_h_c":2,
@@ -74,6 +74,7 @@
         }, 
         "evenements":{
           "frequence_occurence": 10,
+          "occurence_inter_semaine":1,
           "periode":"semaine",
           "lambda_h_c":10, 
           "lambda_h_p":20,
