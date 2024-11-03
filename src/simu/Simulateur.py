@@ -38,7 +38,7 @@ class Simulateur:
 
     def add(self, semaine):
         self.semaines.append(semaine)
-        self.revenus += semaine.five.revenu + semaine.beach.revenu + semaine.padel.revenu
+        self.revenus += semaine.five.revenu + semaine.beach.revenu + semaine.padel.revenu + semaine.bar.revenus
     
     #Fait évoluer les sports de la simulation
     
@@ -76,7 +76,8 @@ class Simulateur:
         for i in range(self.duree): 
             curr_semaine = Semaine()  
             self.evolve(i)  
-            curr_semaine.add(self.Five.clone(), self.Beach.clone(), self.Padel.clone())
+            curr_semaine.add(self.Five.clone(), self.Beach.clone(), self.Padel.clone(), self.Bar.clone())
+            print(str(self.Bar))
             self.add(curr_semaine)
 
     def toXlsx(self, fileName): 
@@ -102,6 +103,7 @@ def start(config_path):
     cfg = config.init(config_path)
     simu = Simulateur(cfg)
     simu.run()
+    print(simu.revenus)
     return simu
 
 

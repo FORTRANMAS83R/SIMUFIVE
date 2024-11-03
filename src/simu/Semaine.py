@@ -4,12 +4,14 @@ class Semaine:
         self.five=None
         self.beach=None
         self.padel=None
+        self.bar = None
         self.revenus = 0
 
-    def add(self,five,beach,padel):
+    def add(self,five,beach,padel, bar):
         self.five=five
         self.beach=beach
         self.padel=padel
+        self.bar = bar
 
 class Semaines:
     def __init__(self):

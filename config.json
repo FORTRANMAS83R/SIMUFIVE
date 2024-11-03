@@ -1,5 +1,5 @@
 {
-    "duree_simu": 1000,
+    "duree_simu": 10,
     "Five": {
       "freq": {
         "freq_init_hc": 10.0,
@@ -57,16 +57,16 @@
     "Bar": {
       "freq":{
         "semaine":{
-          "lambda_h_c":7, 
-          "lambda_h_p":14,
+          "lambda_h_c":1, 
+          "lambda_h_p":2,
           "mu_h_c":2,
           "mu_h_p":7, 
           "sigma_h_c":1,
           "sigma_h_p":2
         }, 
         "week-end":{
-          "lambda_h_c":10, 
-          "lambda_h_p":20,
+          "lambda_h_c":1, 
+          "lambda_h_p":3,
           "mu_h_c":2,
           "mu_h_p":7, 
           "sigma_h_c":1,
@@ -76,8 +76,8 @@
           "frequence_occurence": 10,
           "occurence_inter_semaine":1,
           "periode":"semaine",
-          "lambda_h_c":10, 
-          "lambda_h_p":20,
+          "lambda_h_c":2, 
+          "lambda_h_p":5,
           "mu_h_c":2,
           "mu_h_p":7, 
           "sigma_h_c":1,
