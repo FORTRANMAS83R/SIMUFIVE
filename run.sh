@@ -1,1 +1,1 @@
-python src/simu/Simulateur.py "$@"
+py src/simu/Simulateur.py "$@"

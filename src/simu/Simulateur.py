@@ -91,10 +91,10 @@ class Simulateur:
         # First sheet
         ws = wb.active
         ws.title = "Simulation"
-        ws.append(["Semaine", "Five", "Beach", "Padel"])
+        ws.append(["Semaine", "Revenus Five", "Revenus Beach", "Revenus Padel", "Revenus Bar", "Reservations Five HC", "Reservations Five HP", "Reservations Beach HC", "Reservations Beach HP", "Reservations Padel HC", "Reservations Padel HP", "Affluence Bar"])
         for i in range(len(self.semaines)):
             semaine = self.semaines[i]
-            ws.append([i, semaine.five.revenu, semaine.beach.revenu, semaine.padel.revenu])
+            ws.append([i, semaine.five.revenu, semaine.beach.revenu, semaine.padel.revenu, semaine.bar.revenus, semaine.five.freq.res_hc, semaine.five.freq.res_hp, semaine.beach.freq.res_hc, semaine.beach.freq.res_hp, semaine.padel.freq.res_hc, semaine.padel.freq.res_hp, semaine.bar.affluence])
         
         # Write file
         wb.save(fileName + ".xlsx")
