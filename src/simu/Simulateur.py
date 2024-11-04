@@ -2,6 +2,9 @@ import sys
 import os
 import argparse
 import matplotlib.pyplot as plt
+import warnings
+import time
+
 
 # Ajouter le répertoire parent à sys.path
 parent_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..','..'))
@@ -11,7 +14,6 @@ import src.config.config as config
 from src.simu.Sport import Sport
 from src.simu.Bar import Bar
 from src.simu.Semaine import Semaine
-from src.simu.Semaine import Semaines
 from openpyxl import Workbook
 
 
@@ -32,6 +34,7 @@ class Simulateur:
         self.Bar.set_config(config.Bar)
         self.semaines = []
         self.revenus = 0
+        
     
 
     #Ajoute une semaine à la simulation
@@ -77,7 +80,6 @@ class Simulateur:
             curr_semaine = Semaine()  
             self.evolve(i)  
             curr_semaine.add(self.Five.clone(), self.Beach.clone(), self.Padel.clone(), self.Bar.clone())
-            print(str(self.Bar))
             self.add(curr_semaine)
 
     def toXlsx(self, fileName): 
@@ -98,12 +100,22 @@ class Simulateur:
         wb.save(fileName + ".xlsx")
 
 
+def start_multi_var(params_var: list, init_val: list, nb_simu: int, step: list, config_path: str) -> list:
+    if not isinstance(params_var, list) or not isinstance(init_val, list) or not isinstance(step, list):
+        raise ValueError("params_var, init_val and step doivent êter des listes ! start_multi_var(params_var: list, init_val: list, nb_simu: int, step: list, config_path: str) -> list")
+    if len(params_var) != len(init_val) or len(params_var) != len(step):
+        raise ValueError("params_var, init_val et step doivent avoir la même taille !")
+    param_init = [config.stocker_param_init(config_path, param_var) for param_var in params_var]
+    simulations = []
+    for i in range(nb_simu):
+        [config.modifier_parametre(config_path, params_var[j], init_val[j] + i*step[j]) for j in range(len(params_var))]
+        simulations.append(start(config_path))
+    return simulations
 
 def start(config_path):
     cfg = config.init(config_path)
     simu = Simulateur(cfg)
     simu.run()
-    print(simu.revenus)
     return simu
 
 
@@ -112,11 +124,37 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Script pour traiter un fichier.')
     parser.add_argument('file_name', type=str, help='Le nom du fichier à traiter')
     parser.add_argument('--xlsx', type=str, help='Le nom du fichier excel de sortie (sans extension)')
+    parser.add_argument('--param_var', nargs = '+', help='Lancer une simulation avec un ou plusieurs triplets de paramètres variables (nom_param, val_init, step)')
+    parser.add_argument("--nb_simu", type=int, help="Le nombre de simulations à lancer (inutile si --param-var n'est utilisé)")
+    parser.add_argument("-time", action="store_true", help="Afficher le temps d'exécution")
     args = parser.parse_args()
-    
-    simu = start(args.file_name)
-    simu.plot()
-
-    if(args.xlsx):
-        simu.toXlsx(args.xlsx)
+    print("Starting simulation...")
+    if(args.time):
+        start_time = time.time()
+    if(args.param_var):
+        if(len(args.param_var)%3 != 0):
+            raise ValueError("Le nombre d'arguments pour --param_var doit être un multiple de 3 !(nom_param, val_init, step)")
+        params_var = []
+        val_init = []
+        step = []
+        for i in range(0, len(args.param_var), 3):
+            params_var.append(args.param_var[i])    
+            val_init.append(float(args.param_var[i+1]))
+            step.append(float(args.param_var[i+2]))
+        if(args.nb_simu):
+            nb_simu = args.nb_simu
+        else:
+            nb_simu = 1
+            warnings.warn("Le nombre de simulations n'a pas été spécifié, par défaut nb_simu = 1")
+        
+        simulations = start_multi_var(params_var, val_init, nb_simu, step, args.file_name)
+    else: 
+        if(args.nb_simu):
+            warnings.warn("Attention : --nb_simu est ignoré car --param-var n’est pas actif")
+        simu = start(args.file_name)
+        simu.plot()
+        if(args.xlsx):
+            simu.toXlsx(args.xlsx)
+    if(args.time):
+        print("Execution time : %s seconds" % (round((time.time() - start_time),1)))
     print("Simulation done !")

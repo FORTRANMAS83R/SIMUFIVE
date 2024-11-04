@@ -6,7 +6,6 @@ def modelisation(lbd, mu, sigma, nb_h):
     revenus = 0
     affluence = 0
     tirage = np.random.poisson(lbd, nb_h)
-    print(tirage)
     for i in range(len(tirage)):
         for j in range(tirage[i]):
             taille_groupe = np.random.uniform(2,5)

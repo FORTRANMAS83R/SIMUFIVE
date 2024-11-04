@@ -1,89 +1,85 @@
 {
-    "duree_simu": 10,
+    "duree_simu": 100,
     "Five": {
-      "freq": {
-        "freq_init_hc": 10.0,
-        "freq_max_hc": 20.0, 
-        "var_hc": 0.5,
-        "type_evo_hc": "lineaire",
-        "taux_evo_hc": 1.0,
-
-        "freq_init_hp": 10.0,
-        "freq_max_hp": 20.0, 
-        "var_hp": 0.5,
-        "type_evo_hp": "lineaire",
-        "taux_evo_hp": 1.0
-      },
-      "nb_terrains": 3, 
-      "prix_hc": 10.0,
-      "prix_hp": 20.0
+        "freq": {
+            "freq_init_hc": 5.45,
+            "freq_max_hc": 0.5,
+            "var_hc": 0.01,
+            "type_evo_hc": "lineaire",
+            "taux_evo_hc": 0,
+            "freq_init_hp": 4.56,
+            "freq_max_hp": 0.2,
+            "var_hp": 0.01,
+            "type_evo_hp": "lineaire",
+            "taux_evo_hp": 0
+        },
+        "nb_terrains": 3,
+        "prix_hc": 10.0,
+        "prix_hp": 20.0
     },
     "Beach": {
-      "freq": {
-        "freq_init_hc": 10.0,
-        "freq_max_hc": 20.0, 
-        "var_hc": 0.5,
-        "type_evo_hc": "lineaire",
-        "taux_evo_hc": 1.0,
-
-        "freq_init_hp": 10.0,
-        "freq_max_hp": 20.0, 
-        "var_hp": 0.5,
-        "type_evo_hp": "lineaire",
-        "taux_evo_hp": 1.0
-      },
-      "nb_terrains": 2, 
-      "prix_hc": 10.0,
-      "prix_hp": 20.0
+        "freq": {
+            "freq_init_hc": 0.1,
+            "freq_max_hc": 0.2,
+            "var_hc": 0.01,
+            "type_evo_hc": "lineaire",
+            "taux_evo_hc": 0,
+            "freq_init_hp": 0.1,
+            "freq_max_hp": 0.2,
+            "var_hp": 0.01,
+            "type_evo_hp": "lineaire",
+            "taux_evo_hp": 0
+        },
+        "nb_terrains": 2,
+        "prix_hc": 10.0,
+        "prix_hp": 20.0
     },
     "Padel": {
         "freq": {
-            "freq_init_hc": 10.0,
-            "freq_max_hc": 20.0, 
-            "var_hc": 0.5,
+            "freq_init_hc": 0.1,
+            "freq_max_hc": 0.2,
+            "var_hc": 0.01,
             "type_evo_hc": "lineaire",
-            "taux_evo_hc": 1.0,
-    
-            "freq_init_hp": 10.0,
-            "freq_max_hp": 20.0, 
-            "var_hp": 0.5,
+            "taux_evo_hc": 0,
+            "freq_init_hp": 0.1,
+            "freq_max_hp": 0.2,
+            "var_hp": 0.01,
             "type_evo_hp": "lineaire",
-            "taux_evo_hp": 1.0
+            "taux_evo_hp": 0
         },
-      "nb_terrains": 4, 
+        "nb_terrains": 4,
         "prix_hc": 10.0,
         "prix_hp": 20.0
     },
     "Bar": {
-      "freq":{
-        "semaine":{
-          "lambda_h_c":1, 
-          "lambda_h_p":2,
-          "mu_h_c":2,
-          "mu_h_p":7, 
-          "sigma_h_c":1,
-          "sigma_h_p":2
-        }, 
-        "week-end":{
-          "lambda_h_c":1, 
-          "lambda_h_p":3,
-          "mu_h_c":2,
-          "mu_h_p":7, 
-          "sigma_h_c":1,
-          "sigma_h_p":2
-        }, 
-        "evenements":{
-          "frequence_occurence": 10,
-          "occurence_inter_semaine":1,
-          "periode":"semaine",
-          "lambda_h_c":2, 
-          "lambda_h_p":5,
-          "mu_h_c":2,
-          "mu_h_p":7, 
-          "sigma_h_c":1,
-          "sigma_h_p":2
+        "freq": {
+            "semaine": {
+                "lambda_h_c": 1.092825,
+                "lambda_h_p": 2,
+                "mu_h_c": 2,
+                "mu_h_p": 7,
+                "sigma_h_c": 1,
+                "sigma_h_p": 2
+            },
+            "week-end": {
+                "lambda_h_c": 1,
+                "lambda_h_p": 3,
+                "mu_h_c": 2,
+                "mu_h_p": 7,
+                "sigma_h_c": 1,
+                "sigma_h_p": 2
+            },
+            "evenements": {
+                "frequence_occurence": 10,
+                "occurence_inter_semaine": 1,
+                "periode": "semaine",
+                "lambda_h_c": 2,
+                "lambda_h_p": 5,
+                "mu_h_c": 2,
+                "mu_h_p": 7,
+                "sigma_h_c": 1,
+                "sigma_h_p": 2
+            }
         }
-      }
     }
-  }
-  
+}

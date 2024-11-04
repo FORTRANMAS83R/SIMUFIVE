@@ -133,3 +133,41 @@ def init(path):
     return config
 
 
+
+def modifier_parametre(fic, path, val):
+    # Charger le fichier JSON
+    with open(fic, "r") as f:
+        config = json.load(f)
+    
+    # Diviser le chemin en étapes
+    cles = path.split(".")
+    
+    # Accéder au paramètre cible en suivant le chemin
+    d = config
+    for cle in cles[:-1]:  # Parcourir jusqu'à l'avant-dernière clé
+        d = d.get(cle, {})
+    
+    # Modifier la valeur du paramètre
+    d[cles[-1]] = val
+    
+    # Enregistrer les modifications dans le fichier JSON
+    with open(fic, "w") as f:
+        json.dump(config, f, indent=4)
+
+def stocker_param_init(fic, path):
+    # Charger le fichier JSON
+    with open(fic, "r") as f:
+        config = json.load(f)
+    
+    # Diviser le chemin en étapes
+    cles = path.split(".")
+    
+    # Accéder au paramètre cible en suivant le chemin
+    d = config
+    for cle in cles:
+        d = d.get(cle)
+        if d is None:
+            raise ValueError(f"Le chemin {path} est invalide")
+    
+    return d
+
