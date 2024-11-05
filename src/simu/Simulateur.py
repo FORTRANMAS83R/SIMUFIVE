@@ -91,11 +91,18 @@ class Simulateur:
         # First sheet
         ws = wb.active
         ws.title = "Simulation"
-        ws.append(["Semaine", "Five", "Beach", "Padel"])
+        ws.append(["Semaine", "Revenus Five", "Revenus Beach", "Revenus Padel", "Revenus Bar", "Reservations Five HC", "Reservations Five HP", "Reservations Beach HC", "Reservations Beach HP", "Reservations Padel HC", "Reservations Padel HP", "Affluence Bar", "% Five", "% Beach", "% Padel", "% Bar"])
         for i in range(len(self.semaines)):
             semaine = self.semaines[i]
-            ws.append([i, semaine.five.revenu, semaine.beach.revenu, semaine.padel.revenu])
+            ws.append([i, semaine.five.revenu, semaine.beach.revenu, semaine.padel.revenu, semaine.bar.revenus, semaine.five.freq.res_hc, semaine.five.freq.res_hp, semaine.beach.freq.res_hc, semaine.beach.freq.res_hp, semaine.padel.freq.res_hc, semaine.padel.freq.res_hp, semaine.bar.affluence, semaine.repartition["Five"], semaine.repartition["Beach"], semaine.repartition["Padel"], semaine.repartition["Bar"]])
         
+        # Second sheet
+        ws = wb.create_sheet(title="Moyennes")
+        ws.append(["Période", "Revenus Five", "Revenus Beach", "Revenus Padel", "Revenus Bar"])
+        ws.append(["Semaine", sum([semaine.five.revenu for semaine in self.semaines])/len(self.semaines), sum([semaine.beach.revenu for semaine in self.semaines])/len(self.semaines), sum([semaine.padel.revenu for semaine in self.semaines])/len(self.semaines), sum([semaine.bar.revenus for semaine in self.semaines])/len(self.semaines)])
+        ws.append(["Mois", sum([semaine.five.revenu for semaine in self.semaines])/len(self.semaines)*4, sum([semaine.beach.revenu for semaine in self.semaines])/len(self.semaines)*4, sum([semaine.padel.revenu for semaine in self.semaines])/len(self.semaines)*4, sum([semaine.bar.revenus for semaine in self.semaines])/len(self.semaines)*4])
+        ws.append(["Année", sum([semaine.five.revenu for semaine in self.semaines])/len(self.semaines)*52, sum([semaine.beach.revenu for semaine in self.semaines])/len(self.semaines)*52, sum([semaine.padel.revenu for semaine in self.semaines])/len(self.semaines)*52, sum([semaine.bar.revenus for semaine in self.semaines])/len(self.semaines)*52])
+
         # Write file
         wb.save(fileName + ".xlsx")
 
