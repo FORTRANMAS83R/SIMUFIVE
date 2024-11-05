@@ -8,7 +8,7 @@ def modelisation(lbd, mu, sigma, nb_h):
     tirage = np.random.poisson(lbd, nb_h)
     for i in range(len(tirage)):
         for j in range(tirage[i]):
-            taille_groupe = np.random.uniform(2,5)
+            taille_groupe = np.random.randint(2,5)
             el_rev = np.random.normal(mu,sigma) * taille_groupe 
             affluence += taille_groupe 
             revenus += el_rev    

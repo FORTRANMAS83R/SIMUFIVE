@@ -17,6 +17,7 @@ class Semaine:
         self.repartition["Five"] = self.five.revenu / tot
         self.repartition["Beach"] = self.beach.revenu / tot
         self.repartition["Padel"] = self.padel.revenu / tot
+        self.repartition["Bar"] = self.bar.revenus / tot 
 
     def add(self,five,beach,padel, bar):
         self.five=five
