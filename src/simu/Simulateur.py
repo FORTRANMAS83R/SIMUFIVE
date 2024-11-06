@@ -103,6 +103,13 @@ class Simulateur:
         ws.append(["Mois", sum([semaine.five.revenu for semaine in self.semaines])/len(self.semaines)*4, sum([semaine.beach.revenu for semaine in self.semaines])/len(self.semaines)*4, sum([semaine.padel.revenu for semaine in self.semaines])/len(self.semaines)*4, sum([semaine.bar.revenus for semaine in self.semaines])/len(self.semaines)*4])
         ws.append(["Année", sum([semaine.five.revenu for semaine in self.semaines])/len(self.semaines)*52, sum([semaine.beach.revenu for semaine in self.semaines])/len(self.semaines)*52, sum([semaine.padel.revenu for semaine in self.semaines])/len(self.semaines)*52, sum([semaine.bar.revenus for semaine in self.semaines])/len(self.semaines)*52])
 
+        # Third sheet
+        ws = wb.create_sheet(title="Configurations")
+        ws.append(["Sport", "Nombre terrain", "Prix HC", "Prix HP", "Freq Init HC", "Freq Max HC", "Freq Init HP", "Freq Max HP"])
+        ws.append(["Five", self.Five.nb_terrains, self.Five.prix_hc, self.Five.prix_hp, self.Five.freq.freq_init_hc, self.Five.freq.freq_max_hc, self.Five.freq.freq_init_hp, self.Five.freq.freq_max_hp])
+        ws.append(["Beach", self.Beach.nb_terrains, self.Beach.prix_hc, self.Beach.prix_hp, self.Beach.freq.freq_init_hc, self.Beach.freq.freq_max_hc, self.Beach.freq.freq_init_hp, self.Beach.freq.freq_max_hp])
+        ws.append(["Padel", self.Padel.nb_terrains, self.Padel.prix_hc, self.Padel.prix_hp, self.Padel.freq.freq_init_hc, self.Padel.freq.freq_max_hc, self.Padel.freq.freq_init_hp, self.Padel.freq.freq_max_hp])
+
         # Write file
         wb.save(fileName + ".xlsx")
 
