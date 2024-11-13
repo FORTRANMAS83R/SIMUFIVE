@@ -16,12 +16,40 @@ from src.simu.Bar import Bar
 from src.simu.Semaine import Semaine
 from openpyxl import Workbook
 
+class Simulateur: 
+    def __init__(self,config, nb_realisations): 
+        self.nb_realisations = nb_realisations
+        self.realisations = []
+        self.config = config
+    def run(self, parallel = False):
+        if parallel:
+            # Parallel computing
+            pass
+        else:
+            for i in range(self.nb_realisations):
+                current_realisation = Realisation(self.config)
+                current_realisation.run()
+                self.realisations.append(current_realisation)
+    def mean(self):
+        mean = Realisation(self.config)
+        for i in range(mean.duree): 
+            s = Semaine()
+            s.mean([realisation.semaines[i] for realisation in self.realisations])
+            mean.semaines.append(s)
+        return mean
+    def __str__(self):
+        c = ''
+        for i in range(self.nb_realisations):
+            c += f"Realisation {i+1} : \n"
+            c += str(self.realisations[i])
+        return c
+
 
 """
 Classe Simulateur, stocke des objets sports et leurs difffférentes copies au cours des semaines. 
 Permetant ainsi de simuler l'évolution des sports au cours du temps.
 """
-class Simulateur: 
+class Realisation: 
     def __init__(self, config): 
         self.duree = config.duree_simu
         self.Five = Sport()
@@ -50,6 +78,7 @@ class Simulateur:
         self.Beach.evolve(i)
         self.Padel.evolve(i)
         self.Bar.evolve(i)
+    
     
     def plot(self):
         n_semaine=[]
@@ -112,9 +141,16 @@ class Simulateur:
 
         # Write file
         wb.save(fileName + ".xlsx")
+    
+    def __str__(self):
+        c = ''
+        for i in range(self.duree):
+            c += f"Semaine {i+1} : \n"
+            c += str(self.semaines[i]) + "\n"
+        return c
 
 
-def start_multi_var(params_var: list, init_val: list, nb_simu: int, step: list, config_path: str) -> list:
+def start_multi_var(params_var: list, init_val: list, nb_simu: int, step: list, config_path: str, nb_realisations: int) -> list:
     if not isinstance(params_var, list) or not isinstance(init_val, list) or not isinstance(step, list):
         raise ValueError("params_var, init_val and step doivent êter des listes ! start_multi_var(params_var: list, init_val: list, nb_simu: int, step: list, config_path: str) -> list")
     if len(params_var) != len(init_val) or len(params_var) != len(step):
@@ -123,12 +159,12 @@ def start_multi_var(params_var: list, init_val: list, nb_simu: int, step: list, 
     simulations = []
     for i in range(nb_simu):
         [config.modifier_parametre(config_path, params_var[j], init_val[j] + i*step[j]) for j in range(len(params_var))]
-        simulations.append(start(config_path))
+        simulations.append(start(config_path, nb_realisations))
     return simulations
 
-def start(config_path):
+def start(config_path: str, nb_realisations: int) -> Simulateur:
     cfg = config.init(config_path)
-    simu = Simulateur(cfg)
+    simu = Simulateur(cfg, nb_realisations)
     simu.run()
     return simu
 
@@ -141,10 +177,16 @@ if __name__ == "__main__":
     parser.add_argument('--param_var', nargs = '+', help='Lancer une simulation avec un ou plusieurs triplets de paramètres variables (nom_param, val_init, step)')
     parser.add_argument("--nb_simu", type=int, help="Le nombre de simulations à lancer (inutile si --param-var n'est utilisé)")
     parser.add_argument("-time", action="store_true", help="Afficher le temps d'exécution")
+    parser.add_argument("--nb_realisations", type=int, help="Le nombre de réalisations à effectuer")
     args = parser.parse_args()
     print("Starting simulation...")
     if(args.time):
         start_time = time.time()
+    if(args.nb_realisations):
+        nb_realisations = args.nb_realisations
+    else:
+        nb_realisations = 1
+        warnings.warn("Le nombre de réalisations n'a pas été spécifié, par défaut nb_realisations = 1")
     if(args.param_var):
         if(len(args.param_var)%3 != 0):
             raise ValueError("Le nombre d'arguments pour --param_var doit être un multiple de 3 !(nom_param, val_init, step)")
@@ -161,12 +203,13 @@ if __name__ == "__main__":
             nb_simu = 1
             warnings.warn("Le nombre de simulations n'a pas été spécifié, par défaut nb_simu = 1")
         
-        simulations = start_multi_var(params_var, val_init, nb_simu, step, args.file_name)
+        simulations = start_multi_var(params_var, val_init, nb_simu, step, args.file_name, nb_realisations)
     else: 
         if(args.nb_simu):
             warnings.warn("Attention : --nb_simu est ignoré car --param-var n’est pas actif")
-        simu = start(args.file_name)
-        simu.plot()
+        simu = start(args.file_name, nb_realisations)
+        #simu.plot()
+        print(str(simu.mean()))
         if(args.xlsx):
             simu.toXlsx(args.xlsx)
     if(args.time):
