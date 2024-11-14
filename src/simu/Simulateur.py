@@ -70,6 +70,13 @@ class Simulateur:
         ws.append(["Beach", realisation.Beach.nb_terrains, realisation.Beach.prix_hc, realisation.Beach.prix_hp, realisation.Beach.freq.freq_init_hc, realisation.Beach.freq.freq_max_hc, realisation.Beach.freq.freq_init_hp, realisation.Beach.freq.freq_max_hp])
         ws.append(["Padel", realisation.Padel.nb_terrains, realisation.Padel.prix_hc, realisation.Padel.prix_hp, realisation.Padel.freq.freq_init_hc, realisation.Padel.freq.freq_max_hc, realisation.Padel.freq.freq_init_hp, realisation.Padel.freq.freq_max_hp])
 
+        ws.append([])
+        ws.append(["Bar"])
+        ws.append(["Condition", "Lambda HP", "Lambda HC", "Mu HP", "Mu HC", "Sigma HP", "Sigma HC", "Affluence Max"])
+        ws.append(["Semaine", realisation.Bar.config.semaine.lambda_h_c, realisation.Bar.config.semaine.lambda_h_p, realisation.Bar.config.semaine.mu_h_c, realisation.Bar.config.semaine.mu_h_p, realisation.Bar.config.semaine.sigma_h_c, realisation.Bar.config.semaine.sigma_h_p])
+        ws.append(["Weekend", realisation.Bar.config.weekend.lambda_h_c, realisation.Bar.config.weekend.lambda_h_p, realisation.Bar.config.weekend.mu_h_c, realisation.Bar.config.weekend.mu_h_p, realisation.Bar.config.weekend.sigma_h_c, realisation.Bar.config.weekend.sigma_h_p])
+        ws.append(["Evenement", realisation.Bar.config.evenements.lambda_h_c, realisation.Bar.config.evenements.lambda_h_p, realisation.Bar.config.evenements.mu_h_c, realisation.Bar.config.evenements.mu_h_p, realisation.Bar.config.evenements.sigma_h_c, realisation.Bar.config.evenements.sigma_h_p])
+
         # Write file
         wb.save(fileName + ".xlsx")
 
@@ -154,7 +161,7 @@ class Realisation:
             c += f"Semaine {i+1} : \n"
             c += str(self.semaines[i]) + "\n"
         return c
-        
+
 def start_multi_var(params_var: list, init_val: list, nb_simu: int, step: list, config_path: str, nb_realisations: int) -> list:
     if not isinstance(params_var, list) or not isinstance(init_val, list) or not isinstance(step, list):
         raise ValueError("params_var, init_val and step doivent êter des listes ! start_multi_var(params_var: list, init_val: list, nb_simu: int, step: list, config_path: str) -> list")
