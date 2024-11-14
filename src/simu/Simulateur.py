@@ -21,6 +21,7 @@ class Simulateur:
         self.nb_realisations = nb_realisations
         self.realisations = []
         self.config = config
+
     def run(self, parallel = False):
         if parallel:
             # Parallel computing
@@ -30,6 +31,7 @@ class Simulateur:
                 current_realisation = Realisation(self.config)
                 current_realisation.run()
                 self.realisations.append(current_realisation)
+
     def mean(self):
         mean = Realisation(self.config)
         for i in range(mean.duree): 
@@ -37,6 +39,40 @@ class Simulateur:
             s.mean([realisation.semaines[i] for realisation in self.realisations])
             mean.semaines.append(s)
         return mean
+
+    def toXlsx(self, fileName): 
+        # Put simulation into an excel file
+        # First sheet is for the global simulation (raw data)
+        # Second sheet is for the mean CA per week, month, year
+        wb = Workbook()
+
+        realisation = self.mean()
+
+        # First sheet
+        ws = wb.active
+        ws.title = "Simulation"
+        ws.append(["Semaine", "Revenus Five", "Revenus Beach", "Revenus Padel", "Revenus Bar", "Reservations Five HC", "Reservations Five HP", "Reservations Beach HC", "Reservations Beach HP", "Reservations Padel HC", "Reservations Padel HP", "Affluence Bar", "% Five", "% Beach", "% Padel", "% Bar"])
+        for i in range(len(realisation.semaines)):
+            semaine = realisation.semaines[i]
+            ws.append([i, semaine.five.revenu, semaine.beach.revenu, semaine.padel.revenu, semaine.bar.revenus, semaine.five.freq.res_hc, semaine.five.freq.res_hp, semaine.beach.freq.res_hc, semaine.beach.freq.res_hp, semaine.padel.freq.res_hc, semaine.padel.freq.res_hp, semaine.bar.affluence, semaine.repartition["Five"], semaine.repartition["Beach"], semaine.repartition["Padel"], semaine.repartition["Bar"]])
+        
+        # Second sheet
+        ws = wb.create_sheet(title="Moyennes")
+        ws.append(["Période", "Revenus Five", "Revenus Beach", "Revenus Padel", "Revenus Bar"])
+        ws.append(["Semaine", sum([semaine.five.revenu for semaine in realisation.semaines])/len(realisation.semaines), sum([semaine.beach.revenu for semaine in realisation.semaines])/len(realisation.semaines), sum([semaine.padel.revenu for semaine in realisation.semaines])/len(realisation.semaines), sum([semaine.bar.revenus for semaine in realisation.semaines])/len(realisation.semaines)])
+        ws.append(["Mois", sum([semaine.five.revenu for semaine in realisation.semaines])/len(realisation.semaines)*4, sum([semaine.beach.revenu for semaine in realisation.semaines])/len(realisation.semaines)*4, sum([semaine.padel.revenu for semaine in realisation.semaines])/len(realisation.semaines)*4, sum([semaine.bar.revenus for semaine in realisation.semaines])/len(realisation.semaines)*4])
+        ws.append(["Année", sum([semaine.five.revenu for semaine in realisation.semaines])/len(realisation.semaines)*52, sum([semaine.beach.revenu for semaine in realisation.semaines])/len(realisation.semaines)*52, sum([semaine.padel.revenu for semaine in realisation.semaines])/len(realisation.semaines)*52, sum([semaine.bar.revenus for semaine in realisation.semaines])/len(realisation.semaines)*52])
+
+        # Third sheet
+        ws = wb.create_sheet(title="Configurations")
+        ws.append(["Sport", "Nombre terrain", "Prix HC", "Prix HP", "Freq Init HC", "Freq Max HC", "Freq Init HP", "Freq Max HP"])
+        ws.append(["Five", realisation.Five.nb_terrains, realisation.Five.prix_hc, realisation.Five.prix_hp, realisation.Five.freq.freq_init_hc, realisation.Five.freq.freq_max_hc, realisation.Five.freq.freq_init_hp, realisation.Five.freq.freq_max_hp])
+        ws.append(["Beach", realisation.Beach.nb_terrains, realisation.Beach.prix_hc, realisation.Beach.prix_hp, realisation.Beach.freq.freq_init_hc, realisation.Beach.freq.freq_max_hc, realisation.Beach.freq.freq_init_hp, realisation.Beach.freq.freq_max_hp])
+        ws.append(["Padel", realisation.Padel.nb_terrains, realisation.Padel.prix_hc, realisation.Padel.prix_hp, realisation.Padel.freq.freq_init_hc, realisation.Padel.freq.freq_max_hc, realisation.Padel.freq.freq_init_hp, realisation.Padel.freq.freq_max_hp])
+
+        # Write file
+        wb.save(fileName + ".xlsx")
+
     def __str__(self):
         c = ''
         for i in range(self.nb_realisations):
@@ -111,36 +147,6 @@ class Realisation:
             curr_semaine.add(self.Five.clone(), self.Beach.clone(), self.Padel.clone(), self.Bar.clone())
             self.add(curr_semaine)
 
-    def toXlsx(self, fileName): 
-        # Put simulation into an excel file
-        # First sheet is for the global simulation (raw data)
-        # Second sheet is for the mean CA per week, month, year
-        wb = Workbook()
-
-        # First sheet
-        ws = wb.active
-        ws.title = "Simulation"
-        ws.append(["Semaine", "Revenus Five", "Revenus Beach", "Revenus Padel", "Revenus Bar", "Reservations Five HC", "Reservations Five HP", "Reservations Beach HC", "Reservations Beach HP", "Reservations Padel HC", "Reservations Padel HP", "Affluence Bar", "% Five", "% Beach", "% Padel", "% Bar"])
-        for i in range(len(self.semaines)):
-            semaine = self.semaines[i]
-            ws.append([i, semaine.five.revenu, semaine.beach.revenu, semaine.padel.revenu, semaine.bar.revenus, semaine.five.freq.res_hc, semaine.five.freq.res_hp, semaine.beach.freq.res_hc, semaine.beach.freq.res_hp, semaine.padel.freq.res_hc, semaine.padel.freq.res_hp, semaine.bar.affluence, semaine.repartition["Five"], semaine.repartition["Beach"], semaine.repartition["Padel"], semaine.repartition["Bar"]])
-        
-        # Second sheet
-        ws = wb.create_sheet(title="Moyennes")
-        ws.append(["Période", "Revenus Five", "Revenus Beach", "Revenus Padel", "Revenus Bar"])
-        ws.append(["Semaine", sum([semaine.five.revenu for semaine in self.semaines])/len(self.semaines), sum([semaine.beach.revenu for semaine in self.semaines])/len(self.semaines), sum([semaine.padel.revenu for semaine in self.semaines])/len(self.semaines), sum([semaine.bar.revenus for semaine in self.semaines])/len(self.semaines)])
-        ws.append(["Mois", sum([semaine.five.revenu for semaine in self.semaines])/len(self.semaines)*4, sum([semaine.beach.revenu for semaine in self.semaines])/len(self.semaines)*4, sum([semaine.padel.revenu for semaine in self.semaines])/len(self.semaines)*4, sum([semaine.bar.revenus for semaine in self.semaines])/len(self.semaines)*4])
-        ws.append(["Année", sum([semaine.five.revenu for semaine in self.semaines])/len(self.semaines)*52, sum([semaine.beach.revenu for semaine in self.semaines])/len(self.semaines)*52, sum([semaine.padel.revenu for semaine in self.semaines])/len(self.semaines)*52, sum([semaine.bar.revenus for semaine in self.semaines])/len(self.semaines)*52])
-
-        # Third sheet
-        ws = wb.create_sheet(title="Configurations")
-        ws.append(["Sport", "Nombre terrain", "Prix HC", "Prix HP", "Freq Init HC", "Freq Max HC", "Freq Init HP", "Freq Max HP"])
-        ws.append(["Five", self.Five.nb_terrains, self.Five.prix_hc, self.Five.prix_hp, self.Five.freq.freq_init_hc, self.Five.freq.freq_max_hc, self.Five.freq.freq_init_hp, self.Five.freq.freq_max_hp])
-        ws.append(["Beach", self.Beach.nb_terrains, self.Beach.prix_hc, self.Beach.prix_hp, self.Beach.freq.freq_init_hc, self.Beach.freq.freq_max_hc, self.Beach.freq.freq_init_hp, self.Beach.freq.freq_max_hp])
-        ws.append(["Padel", self.Padel.nb_terrains, self.Padel.prix_hc, self.Padel.prix_hp, self.Padel.freq.freq_init_hc, self.Padel.freq.freq_max_hc, self.Padel.freq.freq_init_hp, self.Padel.freq.freq_max_hp])
-
-        # Write file
-        wb.save(fileName + ".xlsx")
     
     def __str__(self):
         c = ''
@@ -148,8 +154,7 @@ class Realisation:
             c += f"Semaine {i+1} : \n"
             c += str(self.semaines[i]) + "\n"
         return c
-
-
+        
 def start_multi_var(params_var: list, init_val: list, nb_simu: int, step: list, config_path: str, nb_realisations: int) -> list:
     if not isinstance(params_var, list) or not isinstance(init_val, list) or not isinstance(step, list):
         raise ValueError("params_var, init_val and step doivent êter des listes ! start_multi_var(params_var: list, init_val: list, nb_simu: int, step: list, config_path: str) -> list")
