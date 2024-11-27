@@ -1,84 +1,84 @@
 {
-    "duree_simu": 100,
+    "duree_simu": 52,
     "Five": {
         "freq": {
-            "freq_init_hc": 5.45,
-            "freq_max_hc": 0.5,
-            "var_hc": 0.01,
+            "freq_init_hc": 0.3,
+            "freq_max_hc": 1,
+            "var_hc": 0.05,
             "type_evo_hc": "lineaire",
             "taux_evo_hc": 0,
-            "freq_init_hp": 4.56,
-            "freq_max_hp": 0.2,
-            "var_hp": 0.01,
-            "type_evo_hp": "lineaire",
-            "taux_evo_hp": 0
-        },
-        "nb_terrains": 3,
-        "prix_hc": 10.0,
-        "prix_hp": 20.0
-    },
-    "Beach": {
-        "freq": {
-            "freq_init_hc": 0.1,
-            "freq_max_hc": 0.2,
-            "var_hc": 0.01,
-            "type_evo_hc": "lineaire",
-            "taux_evo_hc": 0,
-            "freq_init_hp": 0.1,
-            "freq_max_hp": 0.2,
-            "var_hp": 0.01,
+            "freq_init_hp": 0.6,
+            "freq_max_hp": 1,
+            "var_hp": 0.1,
             "type_evo_hp": "lineaire",
             "taux_evo_hp": 0
         },
         "nb_terrains": 2,
-        "prix_hc": 10.0,
-        "prix_hp": 20.0
+        "prix_hc": 64,
+        "prix_hp": 72
     },
-    "Padel": {
+    "Beach": {
         "freq": {
-            "freq_init_hc": 0.1,
-            "freq_max_hc": 0.2,
-            "var_hc": 0.01,
+            "freq_init_hc": 0.2,
+            "freq_max_hc": 1,
+            "var_hc": 0.05,
             "type_evo_hc": "lineaire",
             "taux_evo_hc": 0,
-            "freq_init_hp": 0.1,
-            "freq_max_hp": 0.2,
-            "var_hp": 0.01,
+            "freq_init_hp": 0.5,
+            "freq_max_hp": 1,
+            "var_hp": 0.3,
             "type_evo_hp": "lineaire",
             "taux_evo_hp": 0
         },
-        "nb_terrains": 4,
-        "prix_hc": 10.0,
-        "prix_hp": 20.0
+        "nb_terrains": 2,
+        "prix_hc": 45,
+        "prix_hp": 52
+    },
+    "Padel": {
+        "freq": {
+            "freq_init_hc": 0.6,
+            "freq_max_hc": 1,
+            "var_hc": 0.05,
+            "type_evo_hc": "lineaire",
+            "taux_evo_hc": 0,
+            "freq_init_hp": 0.8,
+            "freq_max_hp": 1,
+            "var_hp": 0.05,
+            "type_evo_hp": "lineaire",
+            "taux_evo_hp": 0
+        },
+        "nb_terrains": 2,
+        "prix_hc": 26,
+        "prix_hp": 32
     },
     "Bar": {
         "freq": {
             "semaine": {
-                "lambda_h_c": 1.092825,
+                "lambda_h_c": 0,
                 "lambda_h_p": 2,
                 "mu_h_c": 2,
-                "mu_h_p": 7,
-                "sigma_h_c": 1,
+                "mu_h_p": 4,
+                "sigma_h_c": 0.5,
                 "sigma_h_p": 2
             },
             "week-end": {
                 "lambda_h_c": 1,
                 "lambda_h_p": 3,
                 "mu_h_c": 2,
-                "mu_h_p": 7,
-                "sigma_h_c": 1,
+                "mu_h_p": 5,
+                "sigma_h_c": 0.5,
                 "sigma_h_p": 2
             },
             "evenements": {
-                "frequence_occurence": 10,
+                "frequence_occurence": 4,
                 "occurence_inter_semaine": 1,
                 "periode": "semaine",
-                "lambda_h_c": 2,
+                "lambda_h_c": 0,
                 "lambda_h_p": 5,
                 "mu_h_c": 2,
                 "mu_h_p": 7,
-                "sigma_h_c": 1,
-                "sigma_h_p": 2
+                "sigma_h_c": 0.5,
+                "sigma_h_p": 3
             }
         }
     }
