@@ -72,7 +72,7 @@ class Simulateur:
 
         ws.append([])
         ws.append(["Bar"])
-        ws.append(["Condition", "Lambda HP", "Lambda HC", "Mu HP", "Mu HC", "Sigma HP", "Sigma HC", "Affluence Max"])
+        ws.append(["Condition", "Fréquentation d'arrivée des groupes en heures creuses (en groupe / heure)", "Fréquentation d'arrivée des groupes en heures pleines (en groupe / heure)", "Panier moyen par personne en heures creuses", "Panier moyen par personne en heures pleines", "Ecart à la moyenne du panier moyen en heures creuses", "Ecart à la moyenne du panier moyen en heures pleines", "Affluence Max"])
         ws.append(["Semaine", realisation.Bar.config.semaine.lambda_h_c, realisation.Bar.config.semaine.lambda_h_p, realisation.Bar.config.semaine.mu_h_c, realisation.Bar.config.semaine.mu_h_p, realisation.Bar.config.semaine.sigma_h_c, realisation.Bar.config.semaine.sigma_h_p])
         ws.append(["Weekend", realisation.Bar.config.weekend.lambda_h_c, realisation.Bar.config.weekend.lambda_h_p, realisation.Bar.config.weekend.mu_h_c, realisation.Bar.config.weekend.mu_h_p, realisation.Bar.config.weekend.sigma_h_c, realisation.Bar.config.weekend.sigma_h_p])
         ws.append(["Evenement", realisation.Bar.config.evenements.lambda_h_c, realisation.Bar.config.evenements.lambda_h_p, realisation.Bar.config.evenements.mu_h_c, realisation.Bar.config.evenements.mu_h_p, realisation.Bar.config.evenements.sigma_h_c, realisation.Bar.config.evenements.sigma_h_p])
@@ -226,4 +226,5 @@ if __name__ == "__main__":
             simu.toXlsx(args.xlsx)
     if(args.time):
         print("Execution time : %s seconds" % (round((time.time() - start_time),1)))
+
     print("Simulation done !")

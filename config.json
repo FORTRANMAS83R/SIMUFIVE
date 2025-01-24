@@ -13,7 +13,7 @@
             "type_evo_hp": "lineaire",
             "taux_evo_hp": 0
         },
-        "nb_terrains": 0,
+        "nb_terrains": 2,
         "prix_hc": 64,
         "prix_hp": 72
     },
@@ -56,16 +56,16 @@
             "semaine": {
                 "lambda_h_c": 0,
                 "lambda_h_p": 2,
-                "mu_h_c": 2,
-                "mu_h_p": 4,
+                "mu_h_c": 0,
+                "mu_h_p": 0,
                 "sigma_h_c": 0.5,
                 "sigma_h_p": 2
             },
             "week-end": {
                 "lambda_h_c": 1,
                 "lambda_h_p": 3,
-                "mu_h_c": 2,
-                "mu_h_p": 5,
+                "mu_h_c": 0,
+                "mu_h_p": 0,
                 "sigma_h_c": 0.5,
                 "sigma_h_p": 2
             },
@@ -75,8 +75,8 @@
                 "periode": "semaine",
                 "lambda_h_c": 0,
                 "lambda_h_p": 5,
-                "mu_h_c": 2,
-                "mu_h_p": 7,
+                "mu_h_c": 0,
+                "mu_h_p": 0,
                 "sigma_h_c": 0.5,
                 "sigma_h_p": 3
             }

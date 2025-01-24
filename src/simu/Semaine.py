@@ -44,7 +44,7 @@ class Semaine:
         self.revenus = five.revenu + beach.revenu + padel.revenu + bar.revenus
     
     def __str__(self):
-        return "Résumé: \n\tRésultats:"+str(self.revenus)+"\n\tRépartition: "+str(self.repartition)+"\n"
+        return "Résumé: \n\tRésultats:"+str(self.revenus)+"\n\t Résultas (détail): "+ str(self.five.revenu) +","+str(self.padel.revenu) +","+str(self.beach.revenu) +"\n\tRépartition: "+str(self.repartition)+"\n"
 
 
 

@@ -28,6 +28,7 @@ class Sport:
     
     def evolve(self, i): 
         self.freq.evolve(i)
+        print(f"res_hc: {self.freq.get_res_hc()}, res_hp: {self.freq.get_res_hp()}")
         self.revenu = self.freq.get_res_hc() * self.nb_terrains * self.prix_hc + self.freq.get_res_hp() * self.nb_terrains * self.prix_hp
     
     def clone(self):
